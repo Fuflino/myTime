@@ -5,6 +5,8 @@
  */
 package mytime.gui;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +23,7 @@ public class MyTime extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
+//        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", new Locale("da_DK"));
         Parent root = FXMLLoader.load(getClass().getResource("view/FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);

@@ -3,24 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.bll;
+package mytime.dal.dao;
 
-import mytime.dal.DALFacade;
+import java.sql.Connection;
+import mytime.be.Volunteer;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class BLLManager
+public class VolunteerDAO
 {
-    private final DALFacade dalFacade;
-
-    public BLLManager()
+    public Volunteer getVolunteer(Connection c)
     {
-        dalFacade = new DALFacade();
+        return null;
     }
-    
-    
-    
-    
 }

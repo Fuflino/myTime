@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.bll;
+package mytime.dal.controller;
 
-import mytime.dal.DALFacade;
+import mytime.dal.dao.VolunteerDAO;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class BLLManager
+public class VolunteerController implements IVolunteer
 {
-    private final DALFacade dalFacade;
+    private VolunteerDAO dao;
 
-    public BLLManager()
+    public VolunteerController()
     {
-        dalFacade = new DALFacade();
+        dao = new VolunteerDAO();
+        
     }
+    
+    
     
     
     
