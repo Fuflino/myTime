@@ -3,25 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.dal;
+package mytime.dal.dao;
+
+import java.sql.Connection;
+import mytime.be.Volunteer;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class VolunteerController implements IVolunteer
+public class DAO
 {
-    private DAO dao;
-
-    public VolunteerController()
+    public Volunteer getVolunteer(Connection c)
     {
-        dao = new DAO();
-        
+        return null;
     }
-    
-    
-    
-    
-    
-    
 }

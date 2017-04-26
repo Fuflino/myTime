@@ -3,14 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.dal;
+package mytime.dal.controller;
+
+import mytime.dal.dao.DAO;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public interface IVolunteer
+public class VolunteerController implements IVolunteer
 {
+    private DAO dao;
+
+    public VolunteerController()
+    {
+        dao = new DAO();
+        
+    }
+    
+    
+    
+    
     
     
 }

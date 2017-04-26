@@ -5,6 +5,9 @@
  */
 package mytime.dal;
 
+import mytime.dal.controller.IVolunteer;
+import mytime.dal.controller.VolunteerController;
+
 /**
  *
  * @author Stefan-VpcEB3J1E
