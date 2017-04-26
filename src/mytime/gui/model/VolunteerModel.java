@@ -3,24 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.bll;
-
-import mytime.dal.DALFacade;
+package mytime.gui.model;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class BLLManager
+public class VolunteerModel
 {
-    private final DALFacade dalFacade;
-
-    public BLLManager()
-    {
-        dalFacade = new DALFacade();
-    }
-    
-    
-    
     
 }
