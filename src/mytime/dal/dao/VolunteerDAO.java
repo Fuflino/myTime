@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import mytime.be.Guild;
 import mytime.be.Volunteer;
 
 /**
@@ -25,6 +26,14 @@ public class VolunteerDAO
         return null;
     }
     
+    /**
+     * Creates and adds a volunteer to the database. 
+     * @param c
+     * @param name
+     * @param email
+     * @param phonenumber
+     * @throws SQLException 
+     */
     public void createVolunteer(Connection c, String name, String email, String phonenumber) throws SQLException
     {
         System.out.println("Volunteer get");
@@ -43,5 +52,16 @@ public class VolunteerDAO
 
         }
 
+    }
+    
+    /**
+     * Adds a hour-transaction to the database. example: (Date: 24-06-2017, Hours added: 6, to guild(id): 2, By volunteer(id): 1) 
+     * @param vol
+     * @param guild
+     * @param hours 
+     */
+    public void addHoursForVolunteer(Volunteer vol, Guild guild, int hours)
+    {
+        
     }
 }

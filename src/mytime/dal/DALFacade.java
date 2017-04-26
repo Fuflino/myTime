@@ -26,14 +26,25 @@ public class DALFacade
         volunteerController = new VolunteerController();
     }
 
+    /**
+     * Gets a volunteer by id (Not implemented)
+     * @return
+     * @throws SQLException 
+     */
     public Volunteer getVolunteer() throws SQLException
     {
         return volunteerController.getVolunteer();
     }
     
+    /**
+     * Creates and adds volunteer to the database
+     * @param name
+     * @param email
+     * @param phonenumber
+     * @throws SQLException 
+     */
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
-        volunteerController.createVolunteer(name, email, phonenumber);
     }
     
     

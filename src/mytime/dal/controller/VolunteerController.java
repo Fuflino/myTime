@@ -29,13 +29,24 @@ public class VolunteerController implements IVolunteer
         cm = new ConnectionManager();
     }
     
-
+    /**
+     * Not yet implemented
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public Volunteer getVolunteer() throws SQLException
     {
         return dao.getVolunteer(cm.getConnection());
     }
-
+    
+    /**
+     * Creates and adds a volunteer to the database
+     * @param name
+     * @param email
+     * @param phonenumber
+     * @throws SQLException 
+     */
     @Override
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
