@@ -5,12 +5,20 @@
  */
 package mytime.dal.controller;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import mytime.be.Volunteer;
+
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
 public interface IVolunteer
 {
+    public Volunteer getVolunteer() throws SQLException;
     
-    
+    public void createVolunteer(String name, String email, String phonenumber) throws SQLException;
+            
 }

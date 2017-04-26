@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mytime.dal.DALFacade;
 
 /**
  *
@@ -30,6 +31,9 @@ public class MyTime extends Application
         
         stage.setScene(scene);
         stage.show();
+        
+//        DALFacade facade = new DALFacade();
+//        facade.createVolunteer("Manny", "1337h4X0R@gmail.com", "75181978");
     }
 
     /**

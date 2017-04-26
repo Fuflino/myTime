@@ -5,6 +5,12 @@
  */
 package mytime.dal.controller;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import mytime.be.Volunteer;
+import mytime.dal.dao.ConnectionManager;
 import mytime.dal.dao.VolunteerDAO;
 
 /**
@@ -14,11 +20,26 @@ import mytime.dal.dao.VolunteerDAO;
 public class VolunteerController implements IVolunteer
 {
     private VolunteerDAO dao;
-
-    public VolunteerController()
+    private ConnectionManager cm;
+    
+    
+    public VolunteerController() throws IOException
     {
         dao = new VolunteerDAO();
-        
+        cm = new ConnectionManager();
+    }
+    
+
+    @Override
+    public Volunteer getVolunteer() throws SQLException
+    {
+        return dao.getVolunteer(cm.getConnection());
+    }
+
+    @Override
+    public void createVolunteer(String name, String email, String phonenumber) throws SQLException
+    {
+        dao.createVolunteer(cm.getConnection(), name, email, phonenumber);
     }
     
     
