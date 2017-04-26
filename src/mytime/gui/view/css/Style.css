@@ -19,3 +19,17 @@ and open the template in the editor.
     -fx-padding: 40px 5px 40px 5px;
 }
 
+.LoginVolunteerBtn
+{
+       -fx-background-color: transparent;
+       -fx-border-color: rgb(173,173,173);
+       -fx-border-radius: 10px;
+       
+}
+.LoginVolunteerBtn:hover
+{
+    -fx-border-radius: 10px;
+    -fx-border-style: dashed;
+    -fx-border-color: rgb(173,173,173);
+}
+

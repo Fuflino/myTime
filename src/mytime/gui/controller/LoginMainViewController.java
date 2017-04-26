@@ -80,6 +80,8 @@ public class LoginMainViewController implements Initializable
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/LoginOneVolunteer.fxml"));
         Node node = loader.load();
         Button button = (Button) node;
+        LoginOneVolunteerController controller = loader.getController();
+        controller.setVolunteer(volunteer);
         // load the image
 //        Image image = new Image(volunteer.getProfilePicUrl());
 
@@ -99,8 +101,7 @@ public class LoginMainViewController implements Initializable
 
         button.setPrefHeight(22);
         button.setPrefWidth(150);
-//        button.getStyleClass().clear();
-//        button.getStyleClass().add("standardStudent");
+        button.getStyleClass().add("LoginVolunteerBtn");
 
         String name = volunteer.getName().get();
 

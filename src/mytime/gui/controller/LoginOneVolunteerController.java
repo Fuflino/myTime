@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import mytime.be.Volunteer;
 
 /**
  * FXML Controller class
@@ -22,6 +23,7 @@ public class LoginOneVolunteerController implements Initializable
 
     @FXML
     private Button btnVolunteer;
+    private Volunteer volunteer;
 
     /**
      * Initializes the controller class.
@@ -39,5 +41,15 @@ public class LoginOneVolunteerController implements Initializable
     private void handleBtnVolunteerClick(ActionEvent event)
     {
     }
+    /**
+     * Sets the volunteer of this controller class
+     * @param volunteer 
+     */
+    public void setVolunteer(Volunteer volunteer)
+    {
+        this.volunteer = volunteer;
+    }
+    
+    
     
 }
