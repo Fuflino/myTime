@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="94.0" prefWidth="977.0" styleClass="topViewPane" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerTopViewController">
+    <children>
+        <ImageView fx:id="imageView" fitHeight="101.0" fitWidth="117.0" layoutX="109.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@css/khfno.jpg" />
+            </image>
+        </ImageView>
+        <GridPane layoutX="229.0" layoutY="17.0" prefHeight="64.0" prefWidth="306.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="81.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="225.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Navn:" />
+                <Label fx:id="lblName" text="Erik Larsen" GridPane.columnIndex="1" />
+                <Label text="Email:" GridPane.rowIndex="1" />
+                <Label fx:id="lblEmail" text="ErikLarsen@sutmig.dk" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Tlf. Nummer:" GridPane.rowIndex="2" />
+                <Label fx:id="lblPhonenumber" text="09583755" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+<!--      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c68917" height="94.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="108.0" />-->
+        <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="4.0" layoutY="1.0" prefHeight="25.0" prefWidth="89.0" text="&lt;- Tilbage">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+    </children>
+</AnchorPane>
