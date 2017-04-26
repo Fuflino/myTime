@@ -5,6 +5,7 @@
  */
 package mytime.bll;
 
+import java.io.IOException;
 import mytime.dal.DALFacade;
 
 /**
@@ -15,7 +16,7 @@ public class BLLManager
 {
     private final DALFacade dalFacade;
 
-    public BLLManager()
+    public BLLManager() throws IOException
     {
         dalFacade = new DALFacade();
     }
