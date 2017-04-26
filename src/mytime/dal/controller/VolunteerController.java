@@ -5,7 +5,7 @@
  */
 package mytime.dal.controller;
 
-import mytime.dal.dao.DAO;
+import mytime.dal.dao.VolunteerDAO;
 
 /**
  *
@@ -13,11 +13,11 @@ import mytime.dal.dao.DAO;
  */
 public class VolunteerController implements IVolunteer
 {
-    private DAO dao;
+    private VolunteerDAO dao;
 
     public VolunteerController()
     {
-        dao = new DAO();
+        dao = new VolunteerDAO();
         
     }
     

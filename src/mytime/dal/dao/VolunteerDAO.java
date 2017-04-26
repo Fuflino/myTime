@@ -12,7 +12,7 @@ import mytime.be.Volunteer;
  *
  * @author Stefan-VpcEB3J1E
  */
-public class DAO
+public class VolunteerDAO
 {
     public Volunteer getVolunteer(Connection c)
     {
