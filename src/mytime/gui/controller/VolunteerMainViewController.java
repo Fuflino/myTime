@@ -91,6 +91,7 @@ public class VolunteerMainViewController implements Initializable
      */
     private Node getNodeForGuild(String guildName) throws IOException
     {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerOneGuild.fxml"));
         Node node = loader.load();
         Button button = (Button) node;
         // load the image
