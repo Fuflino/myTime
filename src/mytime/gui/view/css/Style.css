@@ -1,0 +1,21 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-04-2017, 10:34:07
+    Author     : User
+*/
+
+.tab *.tab-label 
+{
+    -fx-font-size: 12;
+    -fx-rotate: 90;
+}
+
+.tab 
+{
+    -fx-padding: 40px 5px 40px 5px;
+}
+
