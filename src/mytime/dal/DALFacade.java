@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import mytime.be.Volunteer;
+import mytime.dal.controller.GuildController;
+import mytime.dal.controller.IGuild;
 import mytime.dal.controller.IVolunteer;
 import mytime.dal.controller.VolunteerController;
 
@@ -20,10 +22,13 @@ import mytime.dal.controller.VolunteerController;
 public class DALFacade
 {
     private final IVolunteer volunteerController;
+    private final IGuild guildController;
+    
 
     public DALFacade() throws IOException
     {
         volunteerController = new VolunteerController();
+        guildController = new GuildController();
     }
 
     /**
@@ -45,7 +50,21 @@ public class DALFacade
      */
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
+        volunteerController.createVolunteer(name, email, phonenumber);
     }
+    
+    /**
+     * Creates and adds guild to the database
+     * @param name
+     * @param location
+     * @throws SQLException 
+     */
+    public void createGuild(String name, String location) throws SQLException
+    {
+        guildController.createGuild(name, location);
+    }
+    
+    
     
     
     

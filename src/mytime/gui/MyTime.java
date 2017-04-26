@@ -32,8 +32,9 @@ public class MyTime extends Application
         stage.setScene(scene);
         stage.show();
         
-//        DALFacade facade = new DALFacade();
+        DALFacade facade = new DALFacade();
 //        facade.createVolunteer("Manny", "1337h4X0R@gmail.com", "75181978");
+//        facade.createGuild("Bo i vikinge hytte", "Bork");
     }
 
     /**
