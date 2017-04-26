@@ -25,7 +25,7 @@ public class MyTime extends Application
     public void start(Stage stage) throws Exception
     {
 //        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", new Locale("da_DK"));
-        Parent root = FXMLLoader.load(getClass().getResource("view/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/LoginMainView.fxml"));
         
         Scene scene = new Scene(root);
         

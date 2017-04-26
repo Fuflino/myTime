@@ -22,16 +22,16 @@ public class Volunteer
     private StringProperty email;
     private StringProperty phonenumber;
     private StringProperty description;
+    private final StringProperty profilePicture;
 
-    public Volunteer(String name, int id, String email, String phonenumber)
+    public Volunteer(String name, int id, String email, String phonenumber, String profilePicture)
     {
         this.name = new SimpleStringProperty(name);
         this.id = new SimpleIntegerProperty(id);
         this.email = new SimpleStringProperty(email);
         this.phonenumber = new SimpleStringProperty(phonenumber);
+        this.profilePicture = new SimpleStringProperty(profilePicture);
     }
-    
-    
 
     /**
      * Get the value of description
@@ -53,7 +53,6 @@ public class Volunteer
         this.description = description;
     }
 
-
     /**
      * Get the value of phonenumber
      *
@@ -73,7 +72,6 @@ public class Volunteer
     {
         this.phonenumber = phonenumber;
     }
-
 
     /**
      * Get the value of email
@@ -95,8 +93,6 @@ public class Volunteer
         this.email = email;
     }
 
-    
-
     /**
      * Get the value of id
      *
@@ -106,7 +102,6 @@ public class Volunteer
     {
         return id;
     }
-
 
     /**
      * Get the value of name
@@ -128,5 +123,14 @@ public class Volunteer
         this.name = name;
     }
 
-    
+    /**
+     * Get the value of profilePicture
+     *
+     * @return the value of profilePicture
+     */
+    public StringProperty getProfilePicture()
+    {
+        return profilePicture;
+    }
+
 }
