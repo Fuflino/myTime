@@ -5,17 +5,20 @@
  */
 package mytime.dal;
 
-import java.sql.Connection;
-import mytime.be.Volunteer;
-
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class DAO
+public class DALFacade
 {
-    public Volunteer getVolunteer(Connection c)
+    private final IVolunteer volunteerController;
+
+    public DALFacade()
     {
-        return null;
+        volunteerController = new VolunteerController();
     }
+    
+    
+    
+    
 }

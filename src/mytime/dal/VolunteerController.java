@@ -5,17 +5,23 @@
  */
 package mytime.dal;
 
-import java.sql.Connection;
-import mytime.be.Volunteer;
-
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class DAO
+public class VolunteerController implements IVolunteer
 {
-    public Volunteer getVolunteer(Connection c)
+    private DAO dao;
+
+    public VolunteerController()
     {
-        return null;
+        dao = new DAO();
+        
     }
+    
+    
+    
+    
+    
+    
 }
