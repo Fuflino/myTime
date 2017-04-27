@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import mytime.be.Person;
-import mytime.be.Volunteer;
+import mytime.gui.model.VolunteerModel;
 
 /**
  * FXML Controller class
@@ -25,6 +25,7 @@ public class LoginOneVolunteerController implements Initializable
     @FXML
     private Button btnVolunteer;
     private Person volunteer;
+    private VolunteerModel model;
 
     /**
      * Initializes the controller class.
@@ -32,7 +33,7 @@ public class LoginOneVolunteerController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        model = VolunteerModel.getInstance();
     }    
     /**
      * Gets called when you click on a volunteer button in the TileView.
@@ -41,6 +42,7 @@ public class LoginOneVolunteerController implements Initializable
     @FXML
     private void handleBtnVolunteerClick(ActionEvent event)
     {
+        
     }
     /**
      * Sets the volunteer of this controller class

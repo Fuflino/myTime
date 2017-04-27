@@ -7,7 +7,6 @@ package mytime.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import mytime.be.Group;
@@ -16,7 +15,9 @@ import mytime.be.Person;
 import mytime.be.Volunteer;
 import mytime.dal.controller.GuildController;
 import mytime.dal.controller.IGuild;
+import mytime.dal.controller.ILocation;
 import mytime.dal.controller.IVolunteer;
+import mytime.dal.controller.LocationController;
 import mytime.dal.controller.VolunteerController;
 
 /**
@@ -25,52 +26,72 @@ import mytime.dal.controller.VolunteerController;
  */
 public class DALFacade
 {
+
     private final IVolunteer volunteerController;
     private final IGuild guildController;
-    
+    private final ILocation locationController;
+    private static DALFacade INSTANCE;
 
-    public DALFacade() throws IOException
+    private DALFacade() throws IOException
     {
         volunteerController = new VolunteerController();
         guildController = new GuildController();
+        locationController = new LocationController();
+    }
+
+    public static DALFacade getInstance() throws IOException
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new DALFacade();
+        }
+        return INSTANCE;
     }
 
     /**
+<<<<<<< HEAD
      * Gets all volunteers in a given group(guild)
+=======
+     * Gets a volunteer by id (Not implemented)
+     *
+>>>>>>> origin/master
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Person> getAllVolunteersInGuild(Group group) throws SQLException
     {
         return volunteerController.getAllVolunteersInGuild(group);
     }
-    
+
     /**
      * Creates and adds volunteer to the database
+     *
      * @param name
      * @param email
      * @param phonenumber
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
         volunteerController.createVolunteer(name, email, phonenumber);
     }
-    
+
     /**
      * Creates and adds guild to the database
+     *
      * @param name
      * @param location
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void createGuild(String name, String location) throws SQLException
     {
         guildController.createGuild(name, location);
     }
-    
+
     /**
      * Returns a list of all locations stored in database
-     * @return 
+     *
+     * @return
      */
     public List<Location> getAllLocations() throws SQLException
     {
@@ -87,9 +108,16 @@ public class DALFacade
     {
         return guildController.getAllGuildsAtLocation(location);
     }
-    
-    
-    
-    
-    
+
+    /**
+     * Gets the location with groups and persons by id
+     * @param locationId
+     * @return
+     * @throws SQLServerException 
+     */
+    public List<Location> getSelectedLocation(int locationId) throws SQLServerException
+    {
+       return locationController.getSelectedLocation(locationId);
+    }
+
 }

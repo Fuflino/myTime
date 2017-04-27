@@ -79,6 +79,13 @@ public class Location
     {
         return name;
     }
-    
-
+    /**
+     * To string method override
+     * @return 
+     */
+    @Override
+    public String toString()
+    {
+        return this.name.get();
+    }
 }
