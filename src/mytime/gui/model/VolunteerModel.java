@@ -19,7 +19,7 @@ public class VolunteerModel
 
     private static VolunteerModel INSTANCE;
     private IntegerProperty userHourInput;
-    private List<Location> currentLocation;
+        private Location currentLocation;
 
     /**
      * Part of the singleton pattern
@@ -86,7 +86,7 @@ public class VolunteerModel
      * Sets the location that you choose in the chooselokation view.
      * @param course 
      */
-    public void setCurrentLocation(List<Location> course)
+    public void setCurrentLocation(Location course)
     {
         this.currentLocation = course;
     }

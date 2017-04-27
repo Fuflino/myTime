@@ -60,9 +60,9 @@ public class Model
      * @return
      * @throws SQLServerException 
      */
-    public List<Location> getSelectedLocation(IntegerProperty id) throws SQLServerException
+    public Location getSelectedLocation(Location location) throws SQLException
     {
-        return bllMgr.getSelectedLocation(id.get());
+        return bllMgr.getSelectedLocation(location);
     }
 
 }

@@ -40,9 +40,9 @@ public class BLLManager
      * @return
      * @throws SQLServerException 
      */
-    public List<Location> getSelectedLocation(int locationId) throws SQLServerException
+    public Location getSelectedLocation(Location location) throws SQLException
     {
-        return dalFacade.getSelectedLocation(locationId);
+        return dalFacade.getSelectedLocation(location);
     }
 
 }

@@ -85,15 +85,15 @@ public class ChooseLokationController implements Initializable
         JFXSpinner spinner = new JFXSpinner();
         vbox.getChildren().add(spinner);
         spinner.requestFocus();
-        Task<List<Location>> courseTask = new Task<List<Location>>()
+        Task<Location> courseTask = new Task<Location>()
         {
             @Override
-            public List<Location> call()
+            public Location call()
             {
-                List<Location> b = null;
+               Location b = null;
                 try
                 {
-                    b = model.getSelectedLocation(comboBoxLocation.getSelectionModel().getSelectedItem().getId());
+                    b = model.getSelectedLocation(comboBoxLocation.getSelectionModel().getSelectedItem());
                 } catch (SQLException ex)
                 {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -110,7 +110,7 @@ public class ChooseLokationController implements Initializable
 
                 -> 
                 {
-                    List<Location> course = courseTask.getValue();
+                    Location course = courseTask.getValue();
                     if (null != course)
                     {
                         volunteerModel.setCurrentLocation(course);

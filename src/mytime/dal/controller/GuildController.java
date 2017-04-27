@@ -55,17 +55,17 @@ public class GuildController implements IGuild
         return dao.getAllLocations(cm.getConnection());
     }
     
-    /**
-     * Gets all guilds at a given location
-     * @param location
-     * @return
-     * @throws SQLException 
-     */
-    @Override
-    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
-    {
-        return dao.getAllGuildsAtLocation(cm.getConnection(), location);
-    }
+//    /**
+//     * Gets all guilds at a given location
+//     * @param location
+//     * @return
+//     * @throws SQLException 
+//     */
+//    @Override
+//    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
+//    {
+//        return dao.getAllGuildsAtLocation(cm.getConnection(), location);
+//    }
     
     
 }

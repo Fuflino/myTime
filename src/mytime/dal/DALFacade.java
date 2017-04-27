@@ -98,16 +98,16 @@ public class DALFacade
         return guildController.getAllLocations();
     }
     
-    /**
-     * Returns all guilds at a given location
-     * @param location
-     * @return
-     * @throws SQLException 
-     */
-    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
-    {
-        return guildController.getAllGuildsAtLocation(location);
-    }
+//    /**
+//     * Returns all guilds at a given location
+//     * @param location
+//     * @return
+//     * @throws SQLException 
+//     */
+//    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
+//    {
+//        return guildController.getAllGuildsAtLocation(location);
+//    }
 
     /**
      * Gets the location with groups and persons by id
@@ -115,9 +115,9 @@ public class DALFacade
      * @return
      * @throws SQLServerException 
      */
-    public List<Location> getSelectedLocation(int locationId) throws SQLServerException
+    public Location getSelectedLocation(Location location) throws SQLException
     {
-       return locationController.getSelectedLocation(locationId);
+       return locationController.getSelectedLocation(location);
     }
 
 }

@@ -6,6 +6,7 @@
 package mytime.dal.controller;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.sql.SQLException;
 import java.util.List;
 import mytime.be.Location;
 
@@ -15,5 +16,5 @@ import mytime.be.Location;
  */
 public interface ILocation
 {
-   public List<Location> getSelectedLocation(int locationId) throws SQLServerException; 
+   public Location getSelectedLocation(Location location) throws SQLException; 
 }
