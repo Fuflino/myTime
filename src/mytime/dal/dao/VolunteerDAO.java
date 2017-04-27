@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import mytime.be.Guild;
 import mytime.be.Volunteer;
 
@@ -20,8 +21,9 @@ import mytime.be.Volunteer;
 public class VolunteerDAO
 {
 
-    public Volunteer getVolunteer(Connection c) throws SQLException
+    public List<Volunteer> getAllVolunteers(Connection c) throws SQLException
     {
+        
         
         return null;
     }

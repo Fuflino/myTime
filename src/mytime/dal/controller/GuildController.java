@@ -7,6 +7,8 @@ package mytime.dal.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
+import mytime.be.Location;
 import mytime.dal.dao.ConnectionManager;
 import mytime.dal.dao.GuildDAO;
 import mytime.dal.dao.VolunteerDAO;
@@ -40,4 +42,16 @@ public class GuildController implements IGuild
     {
         dao.createGuild(cm.getConnection(), name, location);
     }
+    
+    /**
+     * Returns a list of all locations stored in database
+     * @return 
+     */
+    @Override
+    public List<Location> getAllLocations() throws SQLException
+    {
+        return dao.getAllLocations(cm.getConnection());
+    }
+    
+    
 }

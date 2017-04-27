@@ -6,6 +6,8 @@
 package mytime.dal.controller;
 
 import java.sql.SQLException;
+import java.util.List;
+import mytime.be.Location;
 
 /**
  *
@@ -14,4 +16,6 @@ import java.sql.SQLException;
 public interface IGuild
 {
     public void createGuild(String name, String location) throws SQLException;
+    
+    public List<Location> getAllLocations() throws SQLException;
 }

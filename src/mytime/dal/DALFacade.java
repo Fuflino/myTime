@@ -9,6 +9,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import mytime.be.Location;
 import mytime.be.Volunteer;
 import mytime.dal.controller.GuildController;
 import mytime.dal.controller.IGuild;
@@ -36,9 +38,9 @@ public class DALFacade
      * @return
      * @throws SQLException 
      */
-    public Volunteer getVolunteer() throws SQLException
+    public List<Volunteer> getVolunteer() throws SQLException
     {
-        return volunteerController.getVolunteer();
+        return volunteerController.getAllVolunteers();
     }
     
     /**
@@ -62,6 +64,15 @@ public class DALFacade
     public void createGuild(String name, String location) throws SQLException
     {
         guildController.createGuild(name, location);
+    }
+    
+    /**
+     * Returns a list of all locations stored in database
+     * @return 
+     */
+    public List<Location> getAllLocations() throws SQLException
+    {
+        return guildController.getAllLocations();
     }
     
     

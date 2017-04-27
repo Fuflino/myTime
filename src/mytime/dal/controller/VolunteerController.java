@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import mytime.be.Volunteer;
 import mytime.dal.dao.ConnectionManager;
 import mytime.dal.dao.VolunteerDAO;
@@ -35,9 +36,9 @@ public class VolunteerController implements IVolunteer
      * @throws SQLException 
      */
     @Override
-    public Volunteer getVolunteer() throws SQLException
+    public List<Volunteer> getAllVolunteers() throws SQLException
     {
-        return dao.getVolunteer(cm.getConnection());
+        return dao.getAllVolunteers(cm.getConnection());
     }
     
     /**

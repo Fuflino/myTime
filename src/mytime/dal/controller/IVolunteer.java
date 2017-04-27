@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import mytime.be.Volunteer;
 
 /**
@@ -17,7 +18,7 @@ import mytime.be.Volunteer;
  */
 public interface IVolunteer
 {
-    public Volunteer getVolunteer() throws SQLException;
+    public List<Volunteer> getAllVolunteers() throws SQLException;
     
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException;
             
