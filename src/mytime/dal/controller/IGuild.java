@@ -7,6 +7,7 @@ package mytime.dal.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
 import mytime.be.Location;
 
 /**
@@ -18,4 +19,6 @@ public interface IGuild
     public void createGuild(String name, String location) throws SQLException;
     
     public List<Location> getAllLocations() throws SQLException;
+    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException;
+    
 }

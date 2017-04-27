@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
+import mytime.be.Person;
 import mytime.be.Volunteer;
 
 /**
@@ -18,7 +20,7 @@ import mytime.be.Volunteer;
  */
 public interface IVolunteer
 {
-    public List<Volunteer> getAllVolunteers() throws SQLException;
+    public List<Person> getAllVolunteersInGuild(Group group) throws SQLException;
     
     public void createVolunteer(String name, String email, String phonenumber) throws SQLException;
             

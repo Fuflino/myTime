@@ -13,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import mytime.be.Group;
+import mytime.be.Guild;
 import mytime.be.Location;
+import mytime.be.Person;
 import mytime.dal.DALFacade;
 
 /**
@@ -35,11 +38,26 @@ public class MyTime extends Application
         stage.show();
         
         DALFacade facade = new DALFacade();
-        List<Location> locations =facade.getAllLocations();
+        List<Location> locations = facade.getAllLocations();
         for (Location location : locations)
         {
-            System.out.println(location.getName().getValue());
+            System.out.println(location.getName());
         }
+        List<Group> guilds = facade.getAllGuildsAtLocation(locations.get(0));
+        for (Group guild : guilds)
+        {
+            System.out.println(guild.getName());
+            
+        }
+        //Group guild = new Guild("Sut", 1, 1, "en fed");
+        
+        
+        List<Person> personlist = facade.getAllVolunteersInGuild(guilds.get(0));
+        for (Person person : personlist)
+        {
+            System.out.println(person.getName());
+        }
+        
 //        facade.createVolunteer("Manny", "1337h4X0R@gmail.com", "75181978");
 //        facade.createGuild("Bo i vikinge hytte", "Bork");
     }

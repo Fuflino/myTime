@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
 import mytime.be.Location;
+import mytime.be.Person;
 import mytime.be.Volunteer;
 import mytime.dal.controller.GuildController;
 import mytime.dal.controller.IGuild;
@@ -34,13 +36,13 @@ public class DALFacade
     }
 
     /**
-     * Gets a volunteer by id (Not implemented)
+     * Gets all volunteers in a given group(guild)
      * @return
      * @throws SQLException 
      */
-    public List<Volunteer> getVolunteer() throws SQLException
+    public List<Person> getAllVolunteersInGuild(Group group) throws SQLException
     {
-        return volunteerController.getAllVolunteers();
+        return volunteerController.getAllVolunteersInGuild(group);
     }
     
     /**
@@ -75,7 +77,16 @@ public class DALFacade
         return guildController.getAllLocations();
     }
     
-    
+    /**
+     * Returns all guilds at a given location
+     * @param location
+     * @return
+     * @throws SQLException 
+     */
+    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
+    {
+        return guildController.getAllGuildsAtLocation(location);
+    }
     
     
     

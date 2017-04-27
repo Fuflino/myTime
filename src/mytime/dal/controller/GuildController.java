@@ -6,8 +6,10 @@
 package mytime.dal.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
 import mytime.be.Location;
 import mytime.dal.dao.ConnectionManager;
 import mytime.dal.dao.GuildDAO;
@@ -51,6 +53,18 @@ public class GuildController implements IGuild
     public List<Location> getAllLocations() throws SQLException
     {
         return dao.getAllLocations(cm.getConnection());
+    }
+    
+    /**
+     * Gets all guilds at a given location
+     * @param location
+     * @return
+     * @throws SQLException 
+     */
+    @Override
+    public List<Group> getAllGuildsAtLocation(Location location) throws SQLException
+    {
+        return dao.getAllGuildsAtLocation(cm.getConnection(), location);
     }
     
     

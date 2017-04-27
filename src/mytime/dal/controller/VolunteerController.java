@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
+import mytime.be.Person;
 import mytime.be.Volunteer;
 import mytime.dal.dao.ConnectionManager;
 import mytime.dal.dao.VolunteerDAO;
@@ -31,14 +33,14 @@ public class VolunteerController implements IVolunteer
     }
     
     /**
-     * Not yet implemented
+     * Get all volunteers in a given group(guild)
      * @return
      * @throws SQLException 
      */
     @Override
-    public List<Volunteer> getAllVolunteers() throws SQLException
+    public List<Person> getAllVolunteersInGuild(Group group) throws SQLException
     {
-        return dao.getAllVolunteers(cm.getConnection());
+        return dao.getAllVolunteersInGuild(cm.getConnection(), group);
     }
     
     /**
