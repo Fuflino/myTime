@@ -5,6 +5,8 @@
  */
 package mytime.be;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +22,16 @@ public class Location
     private final StringProperty name;
     
     private final IntegerProperty id;
+    private List<Group> groups;
+    
+
+    
+    public Location(String name, int id)
+    {
+        this.name = new SimpleStringProperty(name);
+        this.id = new SimpleIntegerProperty(id);
+        groups = new ArrayList();
+    }
 
     /**
      * Get the value of id
@@ -30,15 +42,34 @@ public class Location
     {
         return id;
     }
-
     
-    public Location(String name, int id)
+    /**
+     * Get list of groups.
+     * @return 
+     */
+    public List<Group> getGroups()
     {
-        this.name = new SimpleStringProperty(name);
-        this.id = new SimpleIntegerProperty(id);
+        return groups;
+    }
+    
+    /**
+     * Add a group to the group arraylist
+     * @param group 
+     */
+    public void addGroup(Group group)
+    {
+        groups.add(group);
     }
 
-
+    /**
+     * Set list of groups on this location 
+     * @param groups 
+     */
+    public void setGroups(List<Group> groups)
+    {
+        this.groups = groups;
+    }
+    
     /**
      * Get the value of name
      *
@@ -48,5 +79,6 @@ public class Location
     {
         return name;
     }
+    
 
 }
