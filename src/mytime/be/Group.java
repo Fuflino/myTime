@@ -5,6 +5,8 @@
  */
 package mytime.be;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,13 +23,16 @@ public abstract class Group
     private StringProperty name;
     private final IntegerProperty locationId;
     private StringProperty description;
-
+    private List<Person> personlist;
+    
     public Group(String name, int id, int locationId, String description)
     {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.locationId = new SimpleIntegerProperty(locationId);
         this.description = new SimpleStringProperty(description);
+        
+        personlist = new ArrayList();
     }
     /**
      * 
@@ -76,6 +81,24 @@ public abstract class Group
     public IntegerProperty getLocationId()
     {
         return locationId;
+    }
+    
+    /**
+     * Get list of persons in the group
+     * @return 
+     */
+    public List<Person> getPersonlist()
+    {
+        return personlist;
+    }
+
+    /**
+     * Set list of persons in the group
+     * @param personlist 
+     */
+    public void setPersonlist(List<Person> personlist)
+    {
+        this.personlist = personlist;
     }
     
     
