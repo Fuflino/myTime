@@ -54,18 +54,18 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="3">
                            <children>
-                              <JFXButton prefHeight="68.0" prefWidth="64.0" rotate="180.0" text="➜" />
-                              <Label text="3">
+                              <JFXButton onAction="#handleHourInputDown" prefHeight="68.0" prefWidth="64.0" rotate="180.0" text="➜" />
+                              <Label fx:id="lblUserHourInput" text="3">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Label>
-                              <JFXButton prefHeight="68.0" prefWidth="64.0" text="➜" />
+                              <JFXButton onAction="#handleHourInputUp" prefHeight="68.0" prefWidth="64.0" text="➜" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
                            <children>
-                              <JFXButton buttonType="RAISED" prefHeight="121.0" prefWidth="515.0" text="Udfør">
+                              <JFXButton buttonType="RAISED" onAction="#handleExecuteHourInput" prefHeight="121.0" prefWidth="515.0" text="Udfør">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
