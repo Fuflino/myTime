@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import mytime.be.Person;
 import mytime.be.Volunteer;
 
 /**
@@ -23,7 +24,7 @@ public class LoginOneVolunteerController implements Initializable
 
     @FXML
     private Button btnVolunteer;
-    private Volunteer volunteer;
+    private Person volunteer;
 
     /**
      * Initializes the controller class.
@@ -45,7 +46,7 @@ public class LoginOneVolunteerController implements Initializable
      * Sets the volunteer of this controller class
      * @param volunteer 
      */
-    public void setVolunteer(Volunteer volunteer)
+    public void setVolunteer(Person volunteer)
     {
         this.volunteer = volunteer;
     }

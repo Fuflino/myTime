@@ -23,9 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import mytime.be.Person;
 import mytime.be.Volunteer;
 
 /**
@@ -75,7 +74,7 @@ public class LoginMainViewController implements Initializable
      * @return
      * @throws IOException 
      */
-    private Node getNodeForVolunteer(Volunteer volunteer) throws IOException
+    private Node getNodeForVolunteer(Person volunteer) throws IOException
     {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/LoginOneVolunteer.fxml"));
         Node node = loader.load();
