@@ -27,19 +27,20 @@ public class MyTime extends Application
     public void start(Stage stage) throws Exception
     {
 //        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", new Locale("da_DK"));
-        Parent root = FXMLLoader.load(getClass().getResource("view/NewVolunteerView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/ChooseLokation.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
         
-        DALFacade facade = new DALFacade();
-        List<Location> locations =facade.getAllLocations();
-        for (Location location : locations)
-        {
-            System.out.println(location.getName().getValue());
-        }
+//        DALFacade facade = new DALFacade();
+//        List<Location> locations =facade.getAllLocations();
+//        for (Location location : locations)
+//        {
+//            System.out.println(location.getName().getValue());
+//        }
 //        facade.createVolunteer("Manny", "1337h4X0R@gmail.com", "75181978");
 //        facade.createGuild("Bo i vikinge hytte", "Bork");
     }

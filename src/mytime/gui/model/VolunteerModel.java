@@ -5,8 +5,10 @@
  */
 package mytime.gui.model;
 
+import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import mytime.be.Location;
 
 /**
  *
@@ -17,6 +19,7 @@ public class VolunteerModel
 
     private static VolunteerModel INSTANCE;
     private IntegerProperty userHourInput;
+    private List<Location> currentLocation;
 
     /**
      * Part of the singleton pattern
@@ -39,14 +42,17 @@ public class VolunteerModel
         }
         return INSTANCE;
     }
+
     /**
-     * 
-     * @return The IntegerProperty of the hours that the user have added in the GUI
+     *
+     * @return The IntegerProperty of the hours that the user have added in the
+     * GUI
      */
     public IntegerProperty getUserHourInput()
     {
         return userHourInput;
     }
+
     /**
      * Adds one up in user hour input
      */
@@ -54,6 +60,7 @@ public class VolunteerModel
     {
         userHourInput.set(userHourInput.get() + 1);
     }
+
     /**
      * Substracts one from the user hour input
      */
@@ -64,18 +71,24 @@ public class VolunteerModel
             userHourInput.set(userHourInput.get() - 1);
         }
     }
+
     /**
      * Documents the hours into the database
-     * 
+     *
      */
     public void executeHourDocumentation()
     {
         int hoursToDocumentate = userHourInput.get();
         userHourInput.set(0);
-        
-        
-        
-        
+
+    }
+    /**
+     * Sets the location that you choose in the chooselokation view.
+     * @param course 
+     */
+    public void setCurrentLocation(List<Location> course)
+    {
+        this.currentLocation = course;
     }
 
 }
