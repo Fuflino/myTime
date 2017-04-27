@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="94.0" prefWidth="977.0" styleClass="topViewPane" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerTopViewController">
+<AnchorPane prefHeight="94.0" prefWidth="977.0" styleClass="topViewPane" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerTopViewController">
     <children>
         <ImageView fx:id="imageView" fitHeight="101.0" fitWidth="117.0" layoutX="109.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -31,7 +31,7 @@
                 <Label text="Navn:" />
                 <Label fx:id="lblName" text="Erik Larsen" GridPane.columnIndex="1" />
                 <Label text="Email:" GridPane.rowIndex="1" />
-                <Label fx:id="lblEmail" text="ErikLarsen@sutmig.dk" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="lblEmail" text="ErikLarsen@mig.dk" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="Tlf. Nummer:" GridPane.rowIndex="2" />
                 <Label fx:id="lblPhonenumber" text="09583755" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>

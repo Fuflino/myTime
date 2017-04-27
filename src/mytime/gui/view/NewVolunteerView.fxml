@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="977.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerMainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="977.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerMainViewController">
    <top>
       <fx:include source="VolunteerTopView.fxml" />
    </top>
@@ -54,7 +54,7 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="3">
                            <children>
-                              <JFXButton prefHeight="68.0" prefWidth="64.0" text="➜" />
+                              <JFXButton prefHeight="68.0" prefWidth="64.0" rotate="180.0" text="➜" />
                               <Label text="3">
                                  <font>
                                     <Font size="36.0" />
