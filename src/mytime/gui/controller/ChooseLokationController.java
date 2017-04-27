@@ -145,6 +145,12 @@ public class ChooseLokationController implements Initializable
 
         }
         );
+        courseTask.setOnFailed(e 
+        ->
+        {
+            courseTask.getException().printStackTrace();
+        }
+        );
         exec.execute(courseTask);
     }
 

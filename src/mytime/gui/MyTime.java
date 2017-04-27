@@ -39,7 +39,22 @@ public class MyTime extends Application
         stage.show();
 
     
-//        DALFacade facade = new DALFacade();
+//        DALFacade facade = DALFacade.getInstance();
+//        Location location = new Location("Location", 1);
+//        location = facade.getSelectedLocation(location);
+//        List<Group> groups = location.getGroups();
+//        for (Group group : groups)
+//        {
+//            System.out.println(group.getName().get());
+//            List<Person> personlist = group.getPersonlist();
+//            for (Person person : personlist)
+//            {
+//                System.out.println("--"+ person.getName().get());
+//                
+//            }
+//        }
+//        
+        
 //        List<Location> locations =facade.getAllLocations();
 //        for (Location location : locations)
 //        {
