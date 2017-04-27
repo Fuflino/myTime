@@ -6,31 +6,20 @@
 package mytime.be;
 
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author Stefan-VpcEB3J1E
  */
-public class Volunteer
+public class Volunteer extends Person
 {
 
-    private StringProperty name;
-    private final IntegerProperty id;
-    private StringProperty email;
-    private StringProperty phonenumber;
-    private StringProperty description;
-    private final StringProperty profilePicture;
+
 
     public Volunteer(String name, int id, String email, String phonenumber, String profilePicture)
     {
-        this.name = new SimpleStringProperty(name);
-        this.id = new SimpleIntegerProperty(id);
-        this.email = new SimpleStringProperty(email);
-        this.phonenumber = new SimpleStringProperty(phonenumber);
-        this.profilePicture = new SimpleStringProperty(profilePicture);
+       super(name, id, email, phonenumber, profilePicture);
     }
 
     /**
@@ -38,9 +27,10 @@ public class Volunteer
      *
      * @return the value of description
      */
+    @Override
     public StringProperty getDescription()
     {
-        return description;
+        return super.getDescription();
     }
 
     /**
@@ -48,9 +38,10 @@ public class Volunteer
      *
      * @param description new value of description
      */
-    public void setDescription(StringProperty description)
+    @Override
+    public void setDescription(String description)
     {
-        this.description = description;
+        super.setDescription(description);
     }
 
     /**
@@ -58,9 +49,10 @@ public class Volunteer
      *
      * @return the value of phonenumber
      */
+    @Override
     public StringProperty getPhonenumber()
     {
-        return phonenumber;
+        return super.getPhonenumber();
     }
 
     /**
@@ -68,9 +60,10 @@ public class Volunteer
      *
      * @param phonenumber new value of phonenumber
      */
-    public void setPhonenumber(StringProperty phonenumber)
+    @Override
+    public void setPhonenumber(String phonenumber)
     {
-        this.phonenumber = phonenumber;
+        super.setPhonenumber(phonenumber);
     }
 
     /**
@@ -78,9 +71,10 @@ public class Volunteer
      *
      * @return the value of email
      */
+    @Override
     public StringProperty getEmail()
     {
-        return email;
+        return super.getEmail();
     }
 
     /**
@@ -88,9 +82,10 @@ public class Volunteer
      *
      * @param email new value of email
      */
-    public void setEmail(StringProperty email)
+    @Override
+    public void setEmail(String email)
     {
-        this.email = email;
+        super.setEmail(email);
     }
 
     /**
@@ -98,9 +93,10 @@ public class Volunteer
      *
      * @return the value of id
      */
+    @Override
     public IntegerProperty getId()
     {
-        return id;
+        return super.getId();
     }
 
     /**
@@ -108,29 +104,22 @@ public class Volunteer
      *
      * @return the value of name
      */
+    @Override
     public StringProperty getName()
     {
-        return name;
+        return super.getName();
     }
 
-    /**
-     * Set the value of name
-     *
-     * @param name new value of name
-     */
-    public void setName(StringProperty name)
-    {
-        this.name = name;
-    }
 
     /**
      * Get the value of profilePicture
      *
      * @return the value of profilePicture
      */
+    @Override
     public StringProperty getProfilePicture()
     {
-        return profilePicture;
+        return super.getProfilePicture();
     }
 
 }
