@@ -230,7 +230,6 @@ public class VolunteerMainViewController implements Initializable
             snackBar.show("Dokumenterede " + hours + " timer ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
         }
 
-        snackBar.show("Dokumenterede "+hours+ " timer ved laug "+ volunteerModel.getCurrentGuild().getName().get() +" med success!" , 4000);
         
         for (VolunteerOneGuildController guildController : guildControllers)
         {
