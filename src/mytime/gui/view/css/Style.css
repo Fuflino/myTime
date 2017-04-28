@@ -19,7 +19,7 @@ and open the template in the editor.
 {
     -fx-padding: 40px 5px 40px 5px;
 }
- .jfx-tab-pane .tab-header-background 
+.jfx-tab-pane .tab-header-background 
 {
     /*-fx-background-color: rgb(198,137, 23);*/
     -fx-background-color: rgb(210,160, 85)!important;
@@ -59,15 +59,22 @@ and open the template in the editor.
 
 }
 .jfx-snackbar-content {
-    -fx-background-color: rgb(112,255,112);
+    -fx-background-color: #323232;
     -fx-background-radius: 25px;
-    -fx-background-size: 10px;
+    /*-fx-background-size: 40px;*/
+    -fx-background-image: url('Apply.png');
+    /*-fx-background-size: 30px;*/
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 5%;
 }
 .jfx-snackbar-toast {
-    -fx-text-fill: whitesmoke;  
+    -fx-text-fill: white; 
     -fx-font-size: 15px;
+
 
 }
 .jfx-snackbar-action {
     -fx-text-fill: black; 
+    -fx-border-color: black;
+    -fx-border-width: 10px;
 }

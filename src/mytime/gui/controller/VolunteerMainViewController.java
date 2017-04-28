@@ -227,7 +227,7 @@ public class VolunteerMainViewController implements Initializable
                 //Alert no connection to database
                 Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            snackBar.show("Dokumenterede " + hours + " timer ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
+            snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
         }
 
         
