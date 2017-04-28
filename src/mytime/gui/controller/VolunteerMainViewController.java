@@ -207,7 +207,7 @@ public class VolunteerMainViewController implements Initializable
                 String css = url.toExternalForm();
 
                 root.getStylesheets().add(css);
-                snackBar.show("Du har glemt enten at vælge laug, eller vælge time antal", 4000);
+                snackBar.show("         Du har glemt enten at vælge laug, eller vælge time antal", 5000);
 
 //            snackBar.setStyle(null);
             }
@@ -227,7 +227,7 @@ public class VolunteerMainViewController implements Initializable
                 //Alert no connection to database
                 Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
+            snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4500);
         }
 
         
