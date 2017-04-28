@@ -5,9 +5,12 @@
  */
 package mytime.gui.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.Node;
+import mytime.be.Group;
 import mytime.be.Location;
 
 /**
@@ -19,7 +22,8 @@ public class VolunteerModel
 
     private static VolunteerModel INSTANCE;
     private IntegerProperty userHourInput;
-        private Location currentLocation;
+    private Location currentLocation;
+    private List<Node> loginPersonNodes;
 
     /**
      * Part of the singleton pattern
@@ -27,7 +31,10 @@ public class VolunteerModel
     private VolunteerModel()
     {
         userHourInput = new SimpleIntegerProperty(0);
+        loginPersonNodes = new ArrayList<>();
     }
+    
+    
 
     /**
      * A part of the singleton pattern
@@ -82,13 +89,34 @@ public class VolunteerModel
         userHourInput.set(0);
 
     }
+
     /**
      * Sets the location that you choose in the chooselokation view.
-     * @param course 
+     *
+     * @param course
      */
     public void setCurrentLocation(Location course)
     {
         this.currentLocation = course;
+        
     }
+    /**
+     * A list of all the persons in the LoginMainView wrapped as nodes.
+     * @return 
+     */
+    public List<Node> getLoginPersonNodes()
+    {
+        return loginPersonNodes;
+    }
+    /**
+     * Gets the current location.
+     * @return 
+     */
+    public Location getCurrentLocation()
+    {
+        return currentLocation;
+    }
+    
+    
 
 }
