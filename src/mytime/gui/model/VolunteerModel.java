@@ -124,6 +124,15 @@ public class VolunteerModel
     {
         return currentLocation;
     }
+
+    /**
+     * Sets the current active volunteer.
+     * @param volunteer 
+     */
+    public void setCurrentVolunteer(Person volunteer)
+    {
+        currentVolunteer = volunteer;
+    }
     
     
 

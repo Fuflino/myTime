@@ -5,13 +5,21 @@
  */
 package mytime.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import mytime.be.Person;
+import mytime.gui.model.Model;
 import mytime.gui.model.VolunteerModel;
 
 /**
@@ -34,25 +42,45 @@ public class LoginOneVolunteerController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         model = VolunteerModel.getInstance();
-    }    
+    }
+
     /**
      * Gets called when you click on a volunteer button in the TileView.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleBtnVolunteerClick(ActionEvent event)
     {
+        VolunteerModel.getInstance().setCurrentVolunteer(volunteer);
         
+        Stage mainView = (Stage) btnVolunteer.getScene().getWindow();
+        mainView.close();
+
+        Parent mainViewLoad = null;
+        try
+        {
+            mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/NewVolunteerView.fxml"));
+        } catch (IOException ex)
+        {
+            Logger.getLogger(LoginOneVolunteerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Scene scene = new Scene(mainViewLoad);
+
+        mainView.setScene(scene);
+        mainView.setResizable(true);
+        mainView.show();
     }
+
     /**
      * Sets the volunteer of this controller class
-     * @param volunteer 
+     *
+     * @param volunteer
      */
     public void setVolunteer(Person volunteer)
     {
         this.volunteer = volunteer;
     }
-    
-    
-    
+
 }
