@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
+import mytime.be.Group;
 import mytime.be.Location;
 import mytime.bll.BLLManager;
 
@@ -77,6 +78,19 @@ public class Model
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
         bllMgr.addHoursForVolunteer(volunteerid, guildid, hours);
+    }
+    
+    
+    /**
+     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * @param c
+     * @param volunteerid
+     * @param locationid
+     * @return 
+     */
+    public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
+    {
+        return bllMgr.getAMembersGuildsAtLocation(volunteerid, locationid);
     }
     
 }
