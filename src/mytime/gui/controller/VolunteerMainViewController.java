@@ -6,6 +6,8 @@
 package mytime.gui.controller;
 
 import com.jfoenix.controls.JFXMasonryPane;
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXTabPane;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import mytime.gui.model.VolunteerModel;
 
@@ -47,6 +50,11 @@ public class VolunteerMainViewController implements Initializable
     private VolunteerModel volunteerModel;
     @FXML
     private Label lblUserHourInput;
+    private JFXSnackbar snackBar;
+    @FXML
+    private JFXTabPane tabPane;
+    @FXML
+    private GridPane gridPane;
 
     /**
      * Initializes the controller class.
@@ -54,6 +62,9 @@ public class VolunteerMainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        snackBar = new JFXSnackbar(gridPane);
+        
+        
         volunteerModel = VolunteerModel.getInstance();
         lblUserHourInput.textProperty().bind(volunteerModel.getUserHourInput().asString());
         ArrayList<Node> elements = new ArrayList<>();
@@ -146,6 +157,7 @@ public class VolunteerMainViewController implements Initializable
     @FXML
     private void handleExecuteHourInput(ActionEvent event)
     {
+        int hours = volunteerModel.getUserHourInput().get();
         try
         {
             volunteerModel.executeHourDocumentation();
@@ -154,6 +166,7 @@ public class VolunteerMainViewController implements Initializable
             //Alert no connection to database
             Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        snackBar.show("Dokumenterede "+hours+ " timer ved laug "+ volunteerModel.getCurrentGuild() +" med success!" , 4000);
     }
 
 

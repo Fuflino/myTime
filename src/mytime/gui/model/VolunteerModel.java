@@ -31,6 +31,7 @@ public class VolunteerModel
     private Person currentVolunteer;
     private Group currentGuild;
     private List<Node> loginPersonNodes;
+    
 
     /**
      * Part of the singleton pattern
@@ -132,6 +133,14 @@ public class VolunteerModel
     public void setCurrentVolunteer(Person volunteer)
     {
         currentVolunteer = volunteer;
+    }
+    /**
+     * Gets the guild that the user have choosen
+     * @return 
+     */
+    public Group getCurrentGuild()
+    {
+        return currentGuild;
     }
     
     
