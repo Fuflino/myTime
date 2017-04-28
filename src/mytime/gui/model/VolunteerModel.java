@@ -31,6 +31,7 @@ public class VolunteerModel
     private Person currentVolunteer;
     private Group currentGuild;
     private List<Node> loginPersonNodes;
+    
 
     /**
      * Part of the singleton pattern
