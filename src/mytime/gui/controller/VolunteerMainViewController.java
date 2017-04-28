@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import mytime.be.Group;
 import mytime.gui.model.VolunteerModel;
 
 /**
@@ -47,6 +49,8 @@ public class VolunteerMainViewController implements Initializable
     private VolunteerModel volunteerModel;
     @FXML
     private Label lblUserHourInput;
+    
+    private List<VolunteerOneGuildController> guildControllers;
 
     /**
      * Initializes the controller class.
@@ -56,16 +60,18 @@ public class VolunteerMainViewController implements Initializable
     {
         volunteerModel = VolunteerModel.getInstance();
         lblUserHourInput.textProperty().bind(volunteerModel.getUserHourInput().asString());
-        ArrayList<Node> elements = new ArrayList<>();
+        ArrayList<Node> elements = new ArrayList();
         masonryPane.setCellHeight(100);
         masonryPane.getStyleClass().add("defaultBackgroundColor");
+        guildControllers = new ArrayList();
 
         try
         {
-            for (int i = 0; i < 5; i++)
+            List<Group> guildsAtLocation = VolunteerModel.getInstance().getCurrentLocation().getGroups();
+            for (int i = 0; i < guildsAtLocation.size(); i++)
             {
-                elements.add(getNodeForGuild("Vikinge Laug"));
-
+                elements.add(getNodeForGuild(guildsAtLocation.get(i)));
+                
             }
         } catch (IOException ex)
         {
@@ -83,14 +89,22 @@ public class VolunteerMainViewController implements Initializable
      * @return
      * @throws IOException
      */
-    private Node getNodeForGuild(String guildName) throws IOException
+    private Node getNodeForGuild(Group group) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerOneGuild.fxml"));
+        
+        
         Node node = loader.load();
         Button button = (Button) node;
+        
+        VolunteerOneGuildController controller = loader.getController();
+        guildControllers.add(controller);
+        controller.setGuild(group);
+        controller.setMain(this);
+        
         // load the image
         Image image = new Image("mytime/gui/view/css/notebook.png");
-
+        
         // simple displays ImageView the image as is
         ImageView iv1 = new ImageView();
 //
@@ -112,7 +126,7 @@ public class VolunteerMainViewController implements Initializable
         button.setScaleX(0);
         button.setScaleY(0);
         button.setGraphic(iv1);
-        button.setText(guildName);
+        button.setText(group.getName().get());
 
         Timeline animation = new Timeline(new KeyFrame(Duration.millis(240), new KeyValue(button.scaleXProperty(), 1, Interpolator.EASE_BOTH),
                 new KeyValue(button.scaleYProperty(), 1, Interpolator.EASE_BOTH)));
@@ -156,5 +170,9 @@ public class VolunteerMainViewController implements Initializable
         }
     }
 
+    public List<VolunteerOneGuildController> getGuildControllers()
+    {
+        return guildControllers;
+    }
 
 }

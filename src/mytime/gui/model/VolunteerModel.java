@@ -93,7 +93,7 @@ public class VolunteerModel
     public void executeHourDocumentation() throws SQLException
     {
         int hoursToDocumentate = userHourInput.get();
-        //Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
+        Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
         userHourInput.set(0);
 
     }
@@ -132,6 +132,24 @@ public class VolunteerModel
     public void setCurrentVolunteer(Person volunteer)
     {
         currentVolunteer = volunteer;
+    }
+    
+    /**
+     * Sets the currently selected guild, to add hours to.
+     * @param currentGuild 
+     */
+    public void setCurrentGuild(Group currentGuild)
+    {
+        this.currentGuild = currentGuild;
+    }
+
+    /**
+     * Returns the currently selected guild to add hours to.
+     * @return 
+     */
+    public Group getCurrentGuild()
+    {
+        return currentGuild;
     }
     
     

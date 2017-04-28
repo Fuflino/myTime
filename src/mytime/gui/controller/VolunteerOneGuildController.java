@@ -6,11 +6,14 @@
 package mytime.gui.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import mytime.be.Group;
+import mytime.gui.model.VolunteerModel;
 
 /**
  * FXML Controller class
@@ -23,6 +26,9 @@ public class VolunteerOneGuildController implements Initializable
     private static final String SELECTED = "-fx-background-color: rgb(195,195,195);-fx-background-radius: 10px;";
     @FXML
     private Button btnGuild;
+    private Group guild;
+    
+    VolunteerMainViewController mainController;
 
     /**
      * Initializes the controller class.
@@ -39,7 +45,39 @@ public class VolunteerOneGuildController implements Initializable
     @FXML
     private void handleOnGuildClick(ActionEvent event)
     {
+        List<VolunteerOneGuildController> guildControllers = mainController.getGuildControllers();
         btnGuild.setStyle(SELECTED);
+        VolunteerModel.getInstance().setCurrentGuild(guild);
+        for (VolunteerOneGuildController guildController : guildControllers)
+        {
+            
+            
+            if (guildController != this)
+            {
+                guildController.getBtnGuild().setStyle(null);
+                
+            }
+        }
+        
     }
 
+    /**
+     * Sets the "super controller" that holds the list of guild-buttons.
+     * @param controller 
+     */
+    void setMain(VolunteerMainViewController controller)
+    {
+        mainController =  controller;
+    }
+
+    public Button getBtnGuild()
+    {
+        return btnGuild;
+    }
+
+    public void setGuild(Group guild)
+    {
+        this.guild = guild;
+    }
+    
 }
