@@ -8,10 +8,8 @@ package mytime.gui.controller;
 import com.jfoenix.controls.JFXMasonryPane;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,8 +22,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.util.Duration;
+import mytime.be.Group;
 import mytime.be.Person;
-import mytime.be.Volunteer;
+import mytime.gui.model.VolunteerModel;
 
 /**
  *
@@ -33,50 +32,41 @@ import mytime.be.Volunteer;
  */
 public class LoginMainViewController implements Initializable
 {
-    
 
     @FXML
     private JFXMasonryPane masonryPane;
     @FXML
     private ScrollPane scrollPane;
-    
+
+    private VolunteerModel volunteerModel;
+
     /**
      * Fetches all the volunteers and loads it in the Tileview we have.
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        ArrayList<Node> elements = new ArrayList<>();
-        
+        volunteerModel = VolunteerModel.getInstance();
+        loadAllPersonsIntoListAsNodes();
 
-        try
-        {
-            for (int i = 0; i < 70; i++)
-            {
-                elements.add(getNodeForVolunteer(new Volunteer("Erik Hansen Skov", i, "lol", "lol", "lol")));
-                
-            }
-        } catch (IOException ex)
-        {
-            Logger.getLogger(LoginMainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        
-        masonryPane.getChildren().setAll(elements);
+        Platform.runLater(() -> masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodes()));
         Platform.runLater(() -> scrollPane.requestLayout());
-    }   
-    
+    }
+
     /**
-     * Method for getting a volunteer as a node, so that we can load it in our view as a JAVAFX component.
+     * Method for getting a volunteer as a node, so that we can load it in our
+     * view as a JAVAFX component.
+     *
      * @param volunteer
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private Node getNodeForVolunteer(Person volunteer) throws IOException
     {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/LoginOneVolunteer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/LoginOneVolunteer.fxml"));
         Node node = loader.load();
         Button button = (Button) node;
         LoginOneVolunteerController controller = loader.getController();
@@ -97,7 +87,6 @@ public class LoginMainViewController implements Initializable
 //        iv1.setPreserveRatio(true);
 //        iv1.setSmooth(true);
 //        iv1.setCache(true);
-
         button.setPrefHeight(22);
         button.setPrefWidth(150);
         button.getStyleClass().add("LoginVolunteerBtn");
@@ -106,7 +95,6 @@ public class LoginMainViewController implements Initializable
 
         String[] names = name.split(" ");
 
-        
         if (names.length > 1)
         {
             button.setText(String.format("%s\n" + "%s", names[0], names[names.length - 1]));
@@ -126,5 +114,34 @@ public class LoginMainViewController implements Initializable
 
         return node;
     }
-    
+    /**
+     * Loads all the persons with the same Location ID in as nodes in a list in the Volunteer Model.
+     */
+    private void loadAllPersonsIntoListAsNodes()
+    {
+        int locationId = volunteerModel.getCurrentLocation().getId().get();
+
+        for (Group groups : volunteerModel.getCurrentLocation().getGroups())
+        {
+            System.out.println("id:"+locationId);
+            System.out.println("groupId="+groups.getLocationId().get());
+            System.out.println("groupSize="+groups.getPersonlist().size());
+            if (groups.getLocationId().get() == locationId)
+            {
+                for (Person personToNode : groups.getPersonlist())
+                {
+                    try
+                    {
+                        volunteerModel.getLoginPersonNodes().add(getNodeForVolunteer(personToNode));
+                        System.out.println("Person add:"+personToNode.getName().get());
+                    } catch (IOException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+
+    }
+
 }
