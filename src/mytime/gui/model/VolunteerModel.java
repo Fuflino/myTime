@@ -5,10 +5,13 @@
  */
 package mytime.gui.model;
 
+import java.sql.SQLException;
 import java.util.List;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import mytime.be.Group;
 import mytime.be.Location;
+import mytime.be.Person;
 
 /**
  *
@@ -20,6 +23,8 @@ public class VolunteerModel
     private static VolunteerModel INSTANCE;
     private IntegerProperty userHourInput;
         private Location currentLocation;
+        private Person currentVolunteer;
+        private Group currentGuild;
 
     /**
      * Part of the singleton pattern
@@ -76,9 +81,10 @@ public class VolunteerModel
      * Documents the hours into the database
      *
      */
-    public void executeHourDocumentation()
+    public void executeHourDocumentation() throws SQLException
     {
         int hoursToDocumentate = userHourInput.get();
+        //Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
         userHourInput.set(0);
 
     }
@@ -91,4 +97,6 @@ public class VolunteerModel
         this.currentLocation = course;
     }
 
+    
+    
 }

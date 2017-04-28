@@ -44,5 +44,19 @@ public class BLLManager
     {
         return dalFacade.getSelectedLocation(location);
     }
+    
+    /**
+     * Documents volunteer-hours in the database. Method is called to store 
+     * hours worked by given volunteer-id at given guild-id. The date when 
+     * this method is called is also saved in the database
+     * @param volunteerid
+     * @param guildid
+     * @param hours
+     * @throws SQLException 
+     */
+    public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
+    {
+        dalFacade.addHoursForVolunteer(volunteerid, guildid, hours);
+    }
 
 }

@@ -57,6 +57,20 @@ public class VolunteerController implements IVolunteer
     }
     
     
+    /**
+     * Documents volunteer-hours in the database. Method is called to store 
+     * hours worked by given volunteer-id at given guild-id. The date when 
+     * this method is called is also saved in the database
+     * @param volunteerid
+     * @param guildid
+     * @param hours
+     * @throws SQLException 
+     */
+    @Override
+    public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
+    {
+        dao.addHoursForVolunteer(cm.getConnection(), volunteerid, guildid, hours);
+    }
     
     
     

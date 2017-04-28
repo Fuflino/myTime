@@ -18,6 +18,7 @@ import mytime.be.Guild;
 import mytime.be.Location;
 import mytime.be.Person;
 import mytime.dal.DALFacade;
+import mytime.gui.model.Model;
 
 /**
  *
@@ -38,7 +39,6 @@ public class MyTime extends Application
         stage.setResizable(false);
         stage.show();
 
-    
 //        DALFacade facade = DALFacade.getInstance();
 //        Location location = new Location("Location", 1);
 //        location = facade.getSelectedLocation(location);

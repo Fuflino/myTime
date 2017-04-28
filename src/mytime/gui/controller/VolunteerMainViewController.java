@@ -8,6 +8,7 @@ package mytime.gui.controller;
 import com.jfoenix.controls.JFXMasonryPane;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -145,7 +146,14 @@ public class VolunteerMainViewController implements Initializable
     @FXML
     private void handleExecuteHourInput(ActionEvent event)
     {
-        volunteerModel.executeHourDocumentation();
+        try
+        {
+            volunteerModel.executeHourDocumentation();
+        } catch (SQLException ex)
+        {
+            //Alert no connection to database
+            Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
