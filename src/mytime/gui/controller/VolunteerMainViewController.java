@@ -35,6 +35,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import mytime.be.Group;
+import mytime.be.Person;
+import mytime.gui.model.Model;
 import mytime.gui.model.VolunteerModel;
 
 /**
@@ -79,7 +81,18 @@ public class VolunteerMainViewController implements Initializable
 
         try
         {
-            List<Group> guildsAtLocation = VolunteerModel.getInstance().getCurrentLocation().getGroups();
+            Person currentVolunteer = volunteerModel.getCurrentVolunteer();
+            
+            //List<Group> guildsAtLocation = VolunteerModel.getInstance().getCurrentLocation().getGroups();
+            List<Group> guildsAtLocation = null;
+            try
+            {
+                guildsAtLocation = Model.getInstance().getAMembersGuildsAtLocation(currentVolunteer.getId().get(), volunteerModel.getCurrentLocation().getId().get());
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             for (int i = 0; i < guildsAtLocation.size(); i++)
             {
                 elements.add(getNodeForGuild(guildsAtLocation.get(i)));
@@ -216,6 +229,15 @@ public class VolunteerMainViewController implements Initializable
             }
             snackBar.show("Dokumenterede " + hours + " timer ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
         }
+
+        snackBar.show("Dokumenterede "+hours+ " timer ved laug "+ volunteerModel.getCurrentGuild().getName().get() +" med success!" , 4000);
+        
+        for (VolunteerOneGuildController guildController : guildControllers)
+        {
+            guildController.getBtnGuild().setStyle(null);
+            volunteerModel.setCurrentGuild(null);
+        }
+
     }
 
     public List<VolunteerOneGuildController> getGuildControllers()

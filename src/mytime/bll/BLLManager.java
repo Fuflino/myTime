@@ -9,6 +9,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import mytime.be.Group;
 import mytime.be.Location;
 import mytime.dal.DALFacade;
 
@@ -57,6 +58,18 @@ public class BLLManager
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
         dalFacade.addHoursForVolunteer(volunteerid, guildid, hours);
+    }
+    
+    /**
+     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * @param c
+     * @param volunteerid
+     * @param locationid
+     * @return 
+     */
+    public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
+    {
+        return dalFacade.getAMembersGuildsAtLocation(volunteerid, locationid);
     }
 
 }

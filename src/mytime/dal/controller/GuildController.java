@@ -66,6 +66,19 @@ public class GuildController implements IGuild
 //    {
 //        return dao.getAllGuildsAtLocation(cm.getConnection(), location);
 //    }
+
+    /**
+     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * @param c
+     * @param volunteerid
+     * @param locationid
+     * @return 
+     */
+    @Override
+    public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
+    {
+        return dao.getAMembersGuildsAtLocation(cm.getConnection(), volunteerid, locationid);
+    }
     
     
 }

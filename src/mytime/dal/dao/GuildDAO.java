@@ -77,5 +77,39 @@ public class GuildDAO
         
     }
     
+    /**
+     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * @param c
+     * @param volunteerid
+     * @param locationid
+     * @return 
+     */
+    public List<Group> getAMembersGuildsAtLocation(Connection c, int volunteerid, int locationid) throws SQLException
+    {
+        List<Group> guildList = new ArrayList();
+        
+        try(Connection con = c)
+        {
+            String sql = "SELECT Guild.id, Guild.name, Guild.description, Guild.locationid FROM Guild Join Works_In w on Guild.id = w.guildid Join Volunteer v on v.id = w.volunteerid WHERE v.id = ? AND Guild.locationid = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, volunteerid);
+            ps.setInt(2, locationid);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next())
+            {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String description = rs.getString("description");
+                
+                Group guild = new Guild(name, id, locationid, description);
+                guildList.add(guild);
+            }
+        }
+        
+        return guildList;
+    }
+    
     
 }

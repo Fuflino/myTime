@@ -152,6 +152,15 @@ public class VolunteerModel
     {
         return currentGuild;
     }
+
+    /**
+     * Returns the selected volunteer
+     * @return 
+     */
+    public Person getCurrentVolunteer()
+    {
+        return currentVolunteer;
+    }
     
     
 
