@@ -4,10 +4,24 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 26-04-2017, 10:34:07
-    Author     : User
+    Created on : 28-04-2017, 13:04:50
+    Author     : Stefan-VpcEB3J1E
 */
+.jfx-snackbar-toast {
+    -fx-text-fill: WHITE;  
+    -fx-font-size: 15px;  
 
+}
+.jfx-snackbar-action {
+    -fx-text-fill: #ff4081; 
+}
+
+.jfx-snackbar-content
+{
+    -fx-background-color: #FF3030;
+    -fx-background-radius: 25px;
+    -fx-background-size: 10px;  
+}
 .tab *.tab-label 
 {
     -fx-font-size: 14;
@@ -19,7 +33,7 @@ and open the template in the editor.
 {
     -fx-padding: 40px 5px 40px 5px;
 }
- .jfx-tab-pane .tab-header-background 
+.jfx-tab-pane .tab-header-background 
 {
     /*-fx-background-color: rgb(198,137, 23);*/
     -fx-background-color: rgb(210,160, 85)!important;
@@ -57,17 +71,4 @@ and open the template in the editor.
     -fx-border-width: 0 0 1 0;
     -fx-border-color: rgb(137,137,137);
 
-}
-.jfx-snackbar-content {
-    -fx-background-color: rgb(112,255,112);
-    -fx-background-radius: 25px;
-    -fx-background-size: 10px;
-}
-.jfx-snackbar-toast {
-    -fx-text-fill: whitesmoke;  
-    -fx-font-size: 15px;
-
-}
-.jfx-snackbar-action {
-    -fx-text-fill: black; 
 }

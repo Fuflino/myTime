@@ -31,7 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import mytime.be.Group;
@@ -49,7 +49,7 @@ public class VolunteerMainViewController implements Initializable
     private JFXMasonryPane masonryPane;
     @FXML
     private ScrollPane scrollPane;
-    
+
     private VolunteerModel volunteerModel;
     @FXML
     private Label lblUserHourInput;
@@ -59,6 +59,8 @@ public class VolunteerMainViewController implements Initializable
     private JFXTabPane tabPane;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private BorderPane root;
 
     /**
      * Initializes the controller class.
@@ -66,8 +68,7 @@ public class VolunteerMainViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         snackBar = new JFXSnackbar(gridPane);
-        
-        
+
         volunteerModel = VolunteerModel.getInstance();
         lblUserHourInput.textProperty().bind(volunteerModel.getUserHourInput().asString());
         ArrayList<Node> elements = new ArrayList();
@@ -82,7 +83,7 @@ public class VolunteerMainViewController implements Initializable
             for (int i = 0; i < guildsAtLocation.size(); i++)
             {
                 elements.add(getNodeForGuild(guildsAtLocation.get(i)));
-                
+
             }
         } catch (IOException ex)
         {
@@ -104,19 +105,18 @@ public class VolunteerMainViewController implements Initializable
     private Node getNodeForGuild(Group group) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerOneGuild.fxml"));
-        
-        
+
         Node node = loader.load();
         Button button = (Button) node;
-        
+
         VolunteerOneGuildController controller = loader.getController();
         guildControllers.add(controller);
         controller.setGuild(group);
         controller.setMain(this);
-        
+
         // load the image
         Image image = new Image("mytime/gui/view/css/notebook.png");
-        
+
         // simple displays ImageView the image as is
         ImageView iv1 = new ImageView();
 //
@@ -147,41 +147,75 @@ public class VolunteerMainViewController implements Initializable
 
         return node;
     }
+
     /**
      * Gets called when you substract a hour
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleHourInputDown(ActionEvent event)
     {
         volunteerModel.minusOneUpInUserHoursInput();
     }
+
     /**
      * Gets called when you add a hour up
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleHourInputUp(ActionEvent event)
     {
         volunteerModel.addOneUpInUserHourInput();
     }
+
     /**
      * Gets called when you press on the execute button.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handleExecuteHourInput(ActionEvent event)
     {
         int hours = volunteerModel.getUserHourInput().get();
-        try
+        if (volunteerModel.getCurrentGuild() == null || hours == 0)
         {
-            volunteerModel.executeHourDocumentation();
-        } catch (SQLException ex)
+
+            URL url = this.getClass().getResource("/mytime/gui/view/css/Style-red.css");
+
+            if (url == null)
+            {
+                System.out.println("null");
+            } else
+            {
+                root.getStylesheets().clear();
+
+                String css = url.toExternalForm();
+
+                root.getStylesheets().add(css);
+                snackBar.show("Du har glemt enten at vælge laug, eller vælge time antal", 4000);
+
+//            snackBar.setStyle(null);
+            }
+
+        } else
         {
-            //Alert no connection to database
-            Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            URL url2 = this.getClass().getResource("/mytime/gui/view/css/Style.css");
+            String css2 = url2.toExternalForm();
+            root.getStylesheets().clear();
+            root.getStylesheets().add(css2);
+
+            try
+            {
+                volunteerModel.executeHourDocumentation();
+            } catch (SQLException ex)
+            {
+                //Alert no connection to database
+                Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            snackBar.show("Dokumenterede " + hours + " timer ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4000);
         }
-        snackBar.show("Dokumenterede "+hours+ " timer ved laug "+ volunteerModel.getCurrentGuild().getName().get() +" med success!" , 4000);
     }
 
     public List<VolunteerOneGuildController> getGuildControllers()
