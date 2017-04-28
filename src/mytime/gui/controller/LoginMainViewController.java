@@ -8,8 +8,11 @@ package mytime.gui.controller;
 import com.jfoenix.controls.JFXMasonryPane;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -114,34 +117,42 @@ public class LoginMainViewController implements Initializable
 
         return node;
     }
+
     /**
-     * Loads all the persons with the same Location ID in as nodes in a list in the Volunteer Model.
+     * Loads all the persons with the same Location ID in as nodes in a list in
+     * the Volunteer Model.
      */
     private void loadAllPersonsIntoListAsNodes()
     {
         int locationId = volunteerModel.getCurrentLocation().getId().get();
+        List<Person> personsToLoadInAsNodes = new ArrayList<>();
 
         for (Group groups : volunteerModel.getCurrentLocation().getGroups())
         {
-            System.out.println("id:"+locationId);
-            System.out.println("groupId="+groups.getLocationId().get());
-            System.out.println("groupSize="+groups.getPersonlist().size());
             if (groups.getLocationId().get() == locationId)
             {
-                for (Person personToNode : groups.getPersonlist())
+                for (Person personGroup : groups.getPersonlist())
                 {
-                    try
-                    {
-                        volunteerModel.getLoginPersonNodes().add(getNodeForVolunteer(personToNode));
-                        System.out.println("Person add:"+personToNode.getName().get());
-                    } catch (IOException ex)
-                    {
-                        ex.printStackTrace();
-                    }
+                    
+                   if (!personsToLoadInAsNodes.stream().anyMatch(x -> Objects.equals(x.getId().get(), personGroup.getId().get())))
+                   {
+                      personsToLoadInAsNodes.add(personGroup);
+                   }
+                   
                 }
+
             }
         }
-
+        for (Person personsToLoadInAsNode : personsToLoadInAsNodes)
+        {
+            try
+            {
+                volunteerModel.getLoginPersonNodes().add(getNodeForVolunteer(personsToLoadInAsNode));
+            } catch (IOException ex)
+            {
+              ex.printStackTrace();
+            }
+        }
     }
 
 }
