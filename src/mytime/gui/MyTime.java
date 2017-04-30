@@ -5,20 +5,11 @@
  */
 package mytime.gui;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import mytime.be.Group;
-import mytime.be.Guild;
-import mytime.be.Location;
-import mytime.be.Person;
-import mytime.dal.DALFacade;
-import mytime.gui.model.Model;
 
 /**
  *
@@ -34,9 +25,9 @@ public class MyTime extends Application
         Parent root = FXMLLoader.load(getClass().getResource("view/ChooseLokation.fxml"));
         
         Scene scene = new Scene(root);
-        
+         
         stage.setScene(scene);
-        stage.setResizable(false);
+//        stage.setResizable(false);
         stage.show();
 
 //        DALFacade facade = DALFacade.getInstance();

@@ -11,7 +11,7 @@ import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
+import com.jfoenix.controls.JFXSnackbar;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -26,11 +26,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mytime.be.Location;
 import mytime.gui.model.Model;
 import mytime.gui.model.VolunteerModel;
+import org.controlsfx.validation.ValidationMessage;
+import org.controlsfx.validation.decoration.GraphicValidationDecoration;
+import org.controlsfx.validation.decoration.ValidationDecoration;
 
 /**
  * FXML Controller class
@@ -50,6 +54,10 @@ public class ChooseLokationController implements Initializable
     private Executor exec;
     @FXML
     private VBox vbox;
+    private ValidationDecoration iconDecorator;
+    @FXML
+    private AnchorPane pane;
+    private JFXSnackbar snackbar;
 
     /**
      * Initializes the controller class.
@@ -57,6 +65,8 @@ public class ChooseLokationController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        snackbar = new JFXSnackbar(pane);
+        iconDecorator = new GraphicValidationDecoration();
         model = Model.getInstance();
         volunteerModel = VolunteerModel.getInstance();
 
@@ -70,6 +80,12 @@ public class ChooseLokationController implements Initializable
                     t.setDaemon(true);
                     return t;
         });
+
+        comboBoxLocation.focusedProperty().addListener((o, oldVal, newVal)
+                -> 
+                {
+                    iconDecorator.removeDecorations(comboBoxLocation);
+        });
     }
 
     /**
@@ -80,78 +96,88 @@ public class ChooseLokationController implements Initializable
     @FXML
     private void handleChooseLocation(ActionEvent event)
     {
-        Node button = vbox.getChildren().get(2);
-        vbox.getChildren().remove(2);
-        JFXSpinner spinner = new JFXSpinner();
-        vbox.getChildren().add(spinner);
-        spinner.requestFocus();
-        Task<Location> courseTask = new Task<Location>()
+
+        if (comboBoxLocation.getSelectionModel().getSelectedItem() == null)
         {
-            @Override
-            public Location call()
+            iconDecorator.removeDecorations(comboBoxLocation);
+            pane.requestLayout();
+            snackbar.show("Vælg lokation først", 2700);
+        } else
+        {
+            iconDecorator.removeDecorations(comboBoxLocation);
+            Node button = vbox.getChildren().get(2);
+            vbox.getChildren().remove(2);
+            JFXSpinner spinner = new JFXSpinner();
+            vbox.getChildren().add(spinner);
+            spinner.requestFocus();
+            Task<Location> courseTask = new Task<Location>()
             {
-               Location b = null;
-                try
+                @Override
+                public Location call()
                 {
-                    b = model.getSelectedLocation(comboBoxLocation.getSelectionModel().getSelectedItem());
-                } catch (SQLException ex)
-                {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setHeaderText("SQL-Exception");
-                    alert.setContentText(ex.getMessage());
-                    alert.show();
-                }
-
-                return b;
-            }
-        };
-
-        courseTask.setOnSucceeded(e
-
-                -> 
-                {
-                    Location course = courseTask.getValue();
-                    if (null != course)
+                    Location b = null;
+                    try
                     {
-                        volunteerModel.setCurrentLocation(course);
-
-                        try
-                        {
-                            Stage mainView = (Stage) comboBoxLocation.getScene().getWindow();
-                            mainView.close();
-
-                            Parent mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"));
-                            Scene scene = new Scene(mainViewLoad);
-
-                            mainView.setScene(scene);
-                            mainView.setResizable(true);
-                            mainView.show();
-
-                        } catch (IOException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-
-                    } else
+                        b = model.getSelectedLocation(comboBoxLocation.getSelectionModel().getSelectedItem());
+                    } catch (SQLException ex)
                     {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setHeaderText("Could not get any locations");
-                        alert.setContentText("The returned locations was null. You fucked up, dickhead");
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText("SQL-Exception");
+                        alert.setContentText(ex.getMessage());
                         alert.show();
-                        vbox.getChildren().remove(2);
-                        vbox.getChildren().add(button);
-                        comboBoxLocation.requestFocus();
                     }
 
+                    return b;
+                }
+            };
+
+            courseTask.setOnSucceeded(e
+
+                    -> 
+                    {
+                        Location course = courseTask.getValue();
+                        if (null != course)
+                        {
+                            volunteerModel.setCurrentLocation(course);
+
+                            try
+                            {
+                                Stage mainView = (Stage) comboBoxLocation.getScene().getWindow();
+                                mainView.close();
+
+                                Parent mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"));
+                                Scene scene = new Scene(mainViewLoad);
+
+                                mainView.setScene(scene);
+                                mainView.setResizable(true);
+                                mainView.show();
+
+                            } catch (IOException ex)
+                            {
+                                ex.printStackTrace();
+                            }
+
+                        } else
+                        {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setHeaderText("Could not get any locations");
+                            alert.setContentText("The returned locations was null. You fucked up, dickhead");
+                            alert.show();
+                            vbox.getChildren().remove(2);
+                            vbox.getChildren().add(button);
+                            comboBoxLocation.requestFocus();
+                        }
+
+            }
+            );
+            courseTask.setOnFailed(e
+                    -> 
+                    {
+                        courseTask.getException().printStackTrace();
+            }
+            );
+            exec.execute(courseTask);
         }
-        );
-        courseTask.setOnFailed(e 
-        ->
-        {
-            courseTask.getException().printStackTrace();
-        }
-        );
-        exec.execute(courseTask);
     }
 
     private void setAllLocationsAsItems()
@@ -164,7 +190,11 @@ public class ChooseLokationController implements Initializable
 
         } catch (SQLException ex)
         {
-            ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Couldn't get a connection to the database");
+            alert.setContentText("Check your internet connection, and make you you are connected properly\nErrorcode: " + ex.getMessage());
+            alert.show();
+
         }
     }
 

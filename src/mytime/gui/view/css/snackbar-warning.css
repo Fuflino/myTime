@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30-04-2017, 21:57:52
+    Author     : Stefan Olsen
+*/
+
+.jfx-snackbar-toast {
+    -fx-text-fill: WHITE;  
+    -fx-font-size: 12px;  
+
+}
+.jfx-snackbar-action {
+    -fx-text-fill: #ff4081; 
+}
+
+.jfx-snackbar-content
+{
+    -fx-background-color: #FF3A3A;
+    -fx-background-radius: 15px;
+    -fx-background-insets: 10 1 10 0;
+
+
+    /*-fx-background-image: url('Info.png');*/
+    /*-fx-background-size: 30px;*/
+    /*    -fx-background-repeat: no-repeat;
+        -fx-background-position: 5%;*/
+}
