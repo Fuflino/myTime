@@ -7,11 +7,11 @@ package mytime.gui.controller;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import com.jfoenix.controls.JFXSnackbar;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -100,6 +100,7 @@ public class ChooseLokationController implements Initializable
         if (comboBoxLocation.getSelectionModel().getSelectedItem() == null)
         {
             iconDecorator.removeDecorations(comboBoxLocation);
+            iconDecorator.applyValidationDecoration(ValidationMessage.error(comboBoxLocation, ""));
             pane.requestLayout();
             snackbar.show("Vælg lokation først", 2700);
         } else
