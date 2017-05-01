@@ -5,6 +5,8 @@
  */
 package mytime.gui.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTabPane;
@@ -63,12 +65,20 @@ public class VolunteerMainViewController implements Initializable
     private GridPane gridPane;
     @FXML
     private BorderPane root;
+    @FXML
+    private JFXButton btnHourDown;
+    @FXML
+    private JFXButton btnHourUp;
+    @FXML
+    private JFXButton btnExecuteHourInput;
 
     /**
      * Initializes the controller class.
      */
     public void initialize(URL url, ResourceBundle rb)
     {
+        setStyleForButtons();
+
         snackBar = new JFXSnackbar(gridPane);
 
         volunteerModel = VolunteerModel.getInstance();
@@ -82,7 +92,7 @@ public class VolunteerMainViewController implements Initializable
         try
         {
             Person currentVolunteer = volunteerModel.getCurrentVolunteer();
-            
+
             //List<Group> guildsAtLocation = VolunteerModel.getInstance().getCurrentLocation().getGroups();
             List<Group> guildsAtLocation = null;
             try
@@ -92,7 +102,7 @@ public class VolunteerMainViewController implements Initializable
             {
                 Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             for (int i = 0; i < guildsAtLocation.size(); i++)
             {
                 elements.add(getNodeForGuild(guildsAtLocation.get(i)));
@@ -105,6 +115,51 @@ public class VolunteerMainViewController implements Initializable
 
         masonryPane.getChildren().setAll(elements);
         Platform.runLater(() -> scrollPane.requestLayout());
+    }
+    /**
+     * Method for giving the controls on the volunteer view icons.
+     */
+    private void setStyleForButtons()
+    {
+        btnHourDown.getStyleClass().add("btnVolunteerView");
+        btnExecuteHourInput.getStyleClass().add("btnVolunteerView");
+        btnHourUp.getStyleClass().add("btnVolunteerView");
+
+        Image imgExecute = new Image("mytime/gui/view/css/checked.png");
+        Image imgUp = new Image("mytime/gui/view/css/up-arrow.png");
+        Image imgDown = new Image("mytime/gui/view/css/down-arrow.png");
+
+        // simple displays ImageView the image as is
+        ImageView iv1 = new ImageView(imgExecute);
+        ImageView iv2 = new ImageView(imgUp);
+        ImageView iv3 = new ImageView(imgDown);
+        iv3.rotateProperty().setValue(180);
+
+//
+        iv1.setFitWidth(30);
+        iv2.setFitWidth(30);
+        iv3.setFitWidth(30);
+        iv1.setFitHeight(50);
+        iv2.setFitHeight(50);
+        iv3.setFitHeight(50);
+//        Circle clip = new Circle(iv1.getFitHeight() / 2, iv1.getFitWidth() / 3, 26);
+//
+//        iv1.setClip(clip);
+//
+        iv1.setPreserveRatio(true);
+        iv2.setPreserveRatio(true);
+        iv3.setPreserveRatio(true);
+        iv1.setSmooth(true);
+        iv2.setSmooth(true);
+        iv3.setSmooth(true);
+        iv1.setCache(true);
+        iv2.setCache(true);
+        iv3.setCache(true);
+        btnHourDown.setGraphic(iv3);
+
+        btnExecuteHourInput.setGraphic(iv1);
+        btnHourUp.setGraphic(iv2);
+
     }
 
     /**
@@ -230,7 +285,6 @@ public class VolunteerMainViewController implements Initializable
             snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4500);
         }
 
-        
         for (VolunteerOneGuildController guildController : guildControllers)
         {
             guildController.getBtnGuild().setStyle(null);
