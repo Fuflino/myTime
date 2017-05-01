@@ -17,17 +17,17 @@
       <Label fx:id="lblHello" layoutX="114.0" layoutY="72.0" text="%Hello" />
       <Label fx:id="lblBye" layoutX="114.0" layoutY="106.0" text="%Bye" />
       <Label fx:id="lblManager" layoutX="115.0" layoutY="137.0" text="%Manager" />
-      <Label fx:id="lblLocation" layoutX="115.0" layoutY="168.0" text="%Choose Location" />
-      <Label fx:id="lblRemember" layoutX="115.0" layoutY="200.0" text="%Remember settings on this PC" />
+      <Label fx:id="lblLocation" layoutX="115.0" layoutY="168.0" text="%ChooseLocation" />
+      <Label fx:id="lblRemember" layoutX="115.0" layoutY="200.0" text="%RememberSettingsOnThisPC" />
       <Label fx:id="lblOk" layoutX="115.0" layoutY="230.0" text="%Ok" />
       <Label fx:id="lblBack" layoutX="115.0" layoutY="260.0" text="%Back" />
-      <Label fx:id="lblChoose" layoutX="293.0" layoutY="72.0" text="%Choose guild" />
-      <Label fx:id="lblHours" layoutX="293.0" layoutY="106.0" text="%Select hours" />
+      <Label fx:id="lblChoose" layoutX="293.0" layoutY="72.0" text="%ChooseGuild" />
+      <Label fx:id="lblHours" layoutX="293.0" layoutY="106.0" text="%SelectHours" />
       <Label fx:id="lblName" layoutX="293.0" layoutY="137.0" text="%Name" />
       <Label fx:id="lblEmail" layoutX="293.0" layoutY="168.0" text="%Email" />
-      <Label fx:id="lblNumber" layoutX="350.0" layoutY="200.0" text="%Tel. Number" />
+      <Label fx:id="lblNumber" layoutX="435.0" layoutY="200.0" text="%TelNumber" />
       <Label fx:id="lblSelect" layoutX="293.0" layoutY="230.0" text="%Select" />
-      <Label fx:id="lblDocument" layoutX="293.0" layoutY="260.0" text="%Document hours" />
+      <Label fx:id="lblDocument" layoutX="293.0" layoutY="260.0" text="%DocumentHours" />
       <Label fx:id="lblStatistics" layoutX="435.0" layoutY="72.0" text="%Statistics" />
    </children>
 </AnchorPane>
