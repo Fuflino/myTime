@@ -111,5 +111,50 @@ public class GuildDAO
         return guildList;
     }
     
+    /**
+     * @param c
+     * @param volunteerid
+     * @return a list of integers which represent the guild-id's of the available guilds for a volunteer
+     * @throws SQLException 
+     */
+    public List<Integer> getArrayOfAvailableGuildsForVolunteer(Connection c, int volunteerid) throws SQLException
+    {
+        try(Connection con = c)
+        {
+            List<Integer> allGuilds = new ArrayList();
+            
+            String sql = "SELECT id FROM Guild";
+            String sql2 = "SELECT guildid FROM Works_In WHERE volunteerid = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+                allGuilds.add(rs.getInt("id"));
+            }
+            
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            ps2.setInt(1, volunteerid);
+            ResultSet rs2 = ps2.executeQuery();
+            
+            while(rs2.next())
+            {
+                int guildid = rs2.getInt("guildid");
+                System.out.println("FFDSFG id: " + guildid);
+                for (int i = 0; i<allGuilds.size(); i++)
+                {
+                    if (allGuilds.get(i) == guildid)
+                    {
+                        allGuilds.remove(i);
+                        i--;
+                    }
+                }
+            }
+            return allGuilds;
+            
+            
+        }
+    }
+    
     
 }

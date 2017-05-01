@@ -51,9 +51,9 @@ public class VolunteerController implements IVolunteer
      * @throws SQLException 
      */
     @Override
-    public void createVolunteer(String name, String email, String phonenumber) throws SQLException
+    public int createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
-        dao.createVolunteer(cm.getConnection(), name, email, phonenumber);
+        return dao.createVolunteer(cm.getConnection(), name, email, phonenumber);
     }
     
     
@@ -70,6 +70,42 @@ public class VolunteerController implements IVolunteer
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
         dao.addHoursForVolunteer(cm.getConnection(), volunteerid, guildid, hours);
+    }
+
+    /**
+     * 
+     * @param volunteerid
+     * @return the amount of hours one volunteer has worked in total. The volunteer is defined by id
+     * @throws SQLException 
+     */
+    @Override
+    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
+    {
+        return dao.getTotalHoursOneVolunteer(cm.getConnection(), volunteerid);
+    }
+
+    /**
+     * @param volunteerid
+     * @param guildid
+     * @return amount of hours one person worked on one guild, as an int.
+     * @throws SQLException 
+     */
+    @Override
+    public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException
+    {
+        return dao.getHoursWorkedOnOneGuildByVolunteer(cm.getConnection(), volunteerid, guildid);
+    }
+
+    /**
+     * Assign a volunteer to a guild
+     * @param volunteerid
+     * @param guildid
+     * @throws SQLException 
+     */
+    @Override
+    public void addVolunteerToGuild(int volunteerid, int guildid) throws SQLException
+    {
+        dao.addVolunteerToGuild(cm.getConnection(), volunteerid, guildid);
     }
     
     

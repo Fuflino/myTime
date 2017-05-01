@@ -74,7 +74,7 @@ public class VolunteerDAO
      * @param phonenumber
      * @throws SQLException
      */
-    public void createVolunteer(Connection c, String name, String email, String phonenumber) throws SQLException
+    public int createVolunteer(Connection c, String name, String email, String phonenumber) throws SQLException
     {
         System.out.println("Volunteer get");
 
@@ -82,6 +82,8 @@ public class VolunteerDAO
         {
             String sql = "INSERT INTO Volunteer(name, email, phonenumber)"
                     + "VALUES(?, ?, ?)";
+            
+            String sql2 = "SELECT id FROM Volunteer WHERE name = ? AND email = ? AND phonenumber = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -89,11 +91,45 @@ public class VolunteerDAO
             ps.setString(2, email);
             ps.setString(3, phonenumber);
             ps.executeUpdate();
+            
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            ps2.setString(1, name);
+            ps2.setString(2, email);
+            ps2.setString(3, phonenumber);
+            ResultSet rs2 = ps2.executeQuery();
+            if (rs2.next())
+            {
+                return rs2.getInt("id");
+            }
+            else
+            {
+                return -1;
+            }
+            
 
         }
 
     }
-
+    
+    /**
+     * Assign a volunteer to a guild
+     * @param c
+     * @param volunteerid
+     * @param guildid
+     * @throws SQLException 
+     */
+    public void addVolunteerToGuild(Connection c, int volunteerid, int guildid) throws SQLException
+    {
+        try(Connection con = c)
+        {
+            String sql = "INSERT INTO Works_In(volunteerid, guildid) VALUES(?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, volunteerid);
+            ps.setInt(2, guildid);
+            ps.executeUpdate();
+        }
+    }
+    
     /**
      * Adds a hour-transaction to the database. example: (Date: 24-06-2017,
      * Hours added: 6, to guild(id): 2, By volunteer(id): 1)
@@ -106,8 +142,7 @@ public class VolunteerDAO
     {
         try (Connection con = c)
         {
-            String sql = "INSERT INTO HoursTransaction(hours, volunteerid, guildid, date)"
-                    + "VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO HoursTransaction(hours, volunteerid, guildid, date) VALUES(?, ?, ?, ?)";
             
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -119,6 +154,64 @@ public class VolunteerDAO
             ps.setDate(4, (java.sql.Date)date);
             ps.executeUpdate();
             
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param c
+     * @param volunteerid
+     * @return the amount of hours a volunteer has worked in total
+     */
+    public int getTotalHoursOneVolunteer(Connection c, int volunteerid) throws SQLException
+    {
+        try(Connection con = c)
+        {
+            String columnname = "hours";
+            String sql = "SELECT SUM(Hours) AS "+ columnname +" FROM HoursTransaction WHERE volunteerid = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, volunteerid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getInt(columnname);
+            }
+            else
+            {
+                return -1;
+            }   
+        }
+    }
+    
+    /**
+     * @param c
+     * @param volunteerid
+     * @param guildid
+     * @return amount of hours one person worked on one guild, as an int.
+     * @throws SQLException 
+     */
+    public int getHoursWorkedOnOneGuildByVolunteer(Connection c, int volunteerid, int guildid) throws SQLException
+    {
+        try(Connection con = c)
+        {
+            String columnname = "hours"; 
+            String sql = "SELECT SUM(Hours) AS "+ columnname +" FROM HoursTransaction WHERE volunteerid = ? AND guildid = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, volunteerid);
+            ps.setInt(2, guildid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+            {
+                return rs.getInt(columnname);
+            }
+            else
+            {
+                System.out.println("Something went wrong");
+                return -1;
+            }
         }
     }
 

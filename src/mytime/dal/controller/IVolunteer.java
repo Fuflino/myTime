@@ -22,8 +22,14 @@ public interface IVolunteer
 {
     public List<Person> getAllVolunteersInGuild(Group group) throws SQLException;
     
-    public void createVolunteer(String name, String email, String phonenumber) throws SQLException;
+    public int createVolunteer(String name, String email, String phonenumber) throws SQLException;
     
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException;
+    
+    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException;
+    
+    public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException;
+    
+    public void addVolunteerToGuild(int volunteerid, int guildid) throws SQLException;
             
 }

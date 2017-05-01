@@ -79,6 +79,18 @@ public class GuildController implements IGuild
     {
         return dao.getAMembersGuildsAtLocation(cm.getConnection(), volunteerid, locationid);
     }
+
+    /**
+     * 
+     * @param volunteerid
+     * @return amount of hours one person worked on one guild, as an int.
+     * @throws SQLException 
+     */
+    @Override
+    public List<Integer> getArrayOfAvailableGuildsForVolunteer(int volunteerid) throws SQLException
+    {
+        return dao.getArrayOfAvailableGuildsForVolunteer(cm.getConnection(), volunteerid);
+    }
     
     
 }
