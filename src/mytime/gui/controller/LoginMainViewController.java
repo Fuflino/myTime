@@ -232,7 +232,7 @@ public class LoginMainViewController implements Initializable
 
         Timeline animation = new Timeline(new KeyFrame(Duration.millis(240), new KeyValue(button.scaleXProperty(), 1, Interpolator.EASE_BOTH),
                 new KeyValue(button.scaleYProperty(), 1, Interpolator.EASE_BOTH)));
-        animation.setDelay(Duration.millis(100 * 2 + (1000)));
+        animation.setDelay(Duration.millis(100 * 2 + (2000)));
         animation.play();
 
         return node;
@@ -323,6 +323,7 @@ public class LoginMainViewController implements Initializable
 //                                                            masonryPane.getChildren().addAll(volunteerModel.getLoginPersonNodes());
                                                             masonryPane.requestLayout();
                                                             masonryPane.requestFocus();
+                                                            scrollPane.requestLayout();
                                                 }
                                                 );
 
@@ -333,7 +334,7 @@ public class LoginMainViewController implements Initializable
                                         anotherTask.setOnSucceeded(o
                                                 -> 
                                                 {
-                                                    Platform.runLater(() -> scrollPane.requestLayout());
+                                                    Platform.runLater(() -> scrollPane.requestFocus());
                                         });
                                         exec3.execute(anotherTask);
 
