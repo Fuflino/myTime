@@ -104,31 +104,39 @@ public class LoginMainViewController implements Initializable
         volunteerModel = VolunteerModel.getInstance();
         masonryPane.setCellHeight(80);
         masonryPane.setCellWidth(150);
-        if (volunteerModel.getLoginPersonNodes() != null)
+        if (!volunteerModel.getLoginPersonNodes().isEmpty())
         {
+            System.out.println("here");
             Location locationToLoadAgain = volunteerModel.getCurrentLocation();
 
-            Task<Boolean> loadAgain = new Task<Boolean>()
+            Task<Location> loadAgain = new Task<Location>()
             {
                 @Override
-                protected Boolean call() throws Exception
+                protected Location call() throws Exception
                 {
                     try
                     {
-                        model.getSelectedLocation(locationToLoadAgain);
-                        return true;
+
+                        return model.getSelectedLocation(locationToLoadAgain);
                     } catch (SQLException ex)
                     {
                         Logger.getLogger(LoginMainViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    return false;
+                    return null;
+
                 }
+                
 
             };
             loadAgain.setOnSucceeded(p
                     -> 
                     {
+                        Location lokation = loadAgain.getValue();
+                        volunteerModel.setCurrentLocation(lokation);
+                        System.out.println("lokation:" + lokation.hashCode());
+
                         loadAllPersonsIntoListAsNodes();
+
             });
             exec3.execute(loadAgain);
 
@@ -279,6 +287,7 @@ public class LoginMainViewController implements Initializable
                                 @Override
                                 protected Boolean call() throws Exception
                                 {
+                                    volunteerModel.getLoginPersonNodes().clear();
                                     for (Person personsToLoadInAsNode : perrsons)
                                     {
                                         try
