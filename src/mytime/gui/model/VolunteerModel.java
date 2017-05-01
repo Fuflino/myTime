@@ -95,7 +95,6 @@ public class VolunteerModel
     {
         int hoursToDocumentate = userHourInput.get();
         Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
-        userHourInput.set(0);
 
     }
 

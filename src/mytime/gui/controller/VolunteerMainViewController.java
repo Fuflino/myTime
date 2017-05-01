@@ -6,7 +6,6 @@
 package mytime.gui.controller;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTabPane;
@@ -16,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.Interpolator;
@@ -23,6 +24,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,12 +74,22 @@ public class VolunteerMainViewController implements Initializable
     @FXML
     private JFXButton btnExecuteHourInput;
 
+    private Executor exec;
+
     /**
      * Initializes the controller class.
      */
     public void initialize(URL url, ResourceBundle rb)
     {
         setStyleForButtons();
+
+        exec = Executors.newCachedThreadPool(runnable
+                -> 
+                {
+                    Thread t = new Thread(runnable);
+                    t.setDaemon(true);
+                    return t;
+        });
 
         snackBar = new JFXSnackbar(gridPane);
 
@@ -116,6 +128,7 @@ public class VolunteerMainViewController implements Initializable
         masonryPane.getChildren().setAll(elements);
         Platform.runLater(() -> scrollPane.requestLayout());
     }
+
     /**
      * Method for giving the controls on the volunteer view icons.
      */
@@ -274,21 +287,43 @@ public class VolunteerMainViewController implements Initializable
             root.getStylesheets().clear();
             root.getStylesheets().add(css2);
 
-            try
+            Task<Boolean> executeHourDocumentationTask = new Task<Boolean>()
             {
-                volunteerModel.executeHourDocumentation();
-            } catch (SQLException ex)
-            {
-                //Alert no connection to database
-                Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4500);
-        }
+                @Override
+                protected Boolean call() throws Exception
+                {
+                    try
+                    {
+                        volunteerModel.executeHourDocumentation();
+                        return true;
+                    } catch (SQLException ex)
+                    {
+                        //Alert no connection to database
+                        snackBar.show("There was a problem reaching the database. Have you tried turning it on and off?", 5500);
+                    }
+                    return false;
 
-        for (VolunteerOneGuildController guildController : guildControllers)
-        {
-            guildController.getBtnGuild().setStyle(null);
-            volunteerModel.setCurrentGuild(null);
+                }
+
+            };
+            executeHourDocumentationTask.setOnSucceeded(e
+                    -> 
+                    {
+                        volunteerModel.getUserHourInput().set(0);
+
+                        if (executeHourDocumentationTask.getValue())
+                        {
+                            for (VolunteerOneGuildController guildController : guildControllers)
+                            {
+                                guildController.getBtnGuild().setStyle(null);
+                                volunteerModel.setCurrentGuild(null);
+                            }
+
+                        }
+            }
+            );
+            exec.execute(executeHourDocumentationTask);
+            Platform.runLater(() -> snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4500));
         }
 
     }
