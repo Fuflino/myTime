@@ -267,7 +267,6 @@ public class VolunteerMainViewController implements Initializable
 
             if (url == null)
             {
-                System.out.println("null");
             } else
             {
                 root.getStylesheets().clear();

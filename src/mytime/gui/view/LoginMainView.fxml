@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="531.0" prefWidth="862.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.LoginMainViewController">
    <top>
@@ -15,4 +19,18 @@
          </content>
       </ScrollPane>
    </center>
+   <bottom>
+      <HBox fx:id="ButtomHbox" alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblGreeting" prefHeight="7.0" prefWidth="230.0" text="Henter data... Vent venligst.">
+               <graphic>
+                  <JFXSpinner fx:id="jfxSpinner" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

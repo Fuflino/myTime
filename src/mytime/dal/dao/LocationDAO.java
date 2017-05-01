@@ -64,7 +64,7 @@ public class LocationDAO
                 PreparedStatement ps2 = con.prepareStatement(sql2);
                 ps2.setInt(1, group.getId().get());
                 ResultSet rs2 = ps2.executeQuery();
-     
+
                 while (rs2.next())
                 {
                     String name = rs2.getString("name");
@@ -72,11 +72,15 @@ public class LocationDAO
                     String phonenumber = rs2.getString("phonenumber");
                     String description = rs2.getString("description");
                     String profilepicture = rs2.getString("profilepicture");
+                    if (profilepicture == null)
+                    {
+                        profilepicture = "https://i.imgsafe.org/3945ecd93f.png";
+                    }
                     int id = rs2.getInt("id");
 
                     Person volunteer = new Volunteer(name, id, email, phonenumber, profilepicture);
                     personlist.add(volunteer);
-                    
+
                 }
                 group.setPersonlist(personlist);
             }

@@ -53,6 +53,10 @@ public class VolunteerDAO
                 String phonenumber = rs.getString("phonenumber");
                 String description = rs.getString("description");
                 String profilepicture = rs.getString("profilepicture");
+                if (profilepicture == null)
+                {
+                    profilepicture = "https://i.imgsafe.org/3945ecd93f.png";
+                }
                 int id = rs.getInt("id");
 
                 Person volunteer = new Volunteer(name, id, email, phonenumber, profilepicture);
@@ -108,7 +112,7 @@ public class VolunteerDAO
         {
             String sql = "INSERT INTO HoursTransaction(hours, volunteerid, guildid, date)"
                     + "VALUES(?, ?, ?, ?)";
-            
+
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, hours);
@@ -116,9 +120,9 @@ public class VolunteerDAO
             ps.setInt(3, guildid);
             LocalDate ld = LocalDate.now();
             Date date = java.sql.Date.valueOf(ld);
-            ps.setDate(4, (java.sql.Date)date);
+            ps.setDate(4, (java.sql.Date) date);
             ps.executeUpdate();
-            
+
         }
     }
 
