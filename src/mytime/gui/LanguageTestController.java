@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytime.ForLaterUse;
+package mytime.gui;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +34,33 @@ public class LanguageTestController implements Initializable
     private Label lblHello;
     @FXML
     private Label lblBye;
+    @FXML
+    private Label lblManager;
+    @FXML
+    private Label lblLocation;
+    @FXML
+    private Label lblRemember;
+    @FXML
+    private Label lblOk;
+    @FXML
+    private Label lblBack;
+    @FXML
+    private Label lblChoose;
+    @FXML
+    private Label lblHours;
+    @FXML
+    private Label lblName;
+    @FXML
+    private Label lblEmail;
+    @FXML
+    private Label lblNumber;
+    @FXML
+    private Label lblSelect;
+    @FXML
+    private Label lblDocument;
+    @FXML
+    private Label lblStatistics;
+    
     private ResourceBundle resources;
 
     /**
@@ -56,6 +83,12 @@ public class LanguageTestController implements Initializable
     {
         loadView(new Locale("eng"));
     }
+    
+    @FXML
+    private void handleGer(ActionEvent event)
+    {
+        loadView(new Locale("ger"));
+    }
 
     private void loadView(Locale locale)
     {
@@ -63,7 +96,7 @@ public class LanguageTestController implements Initializable
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
             ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", locale);
-            Parent root = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LanguageTest.fxml"), bundle);
+            Parent root = FXMLLoader.load(getClass().getResource("/mytime/gui/LanguageTest.fxml"), bundle);
             // replace the content
             AnchorPane content = (AnchorPane) lblBye.getScene().getRoot();
             content.getChildren().clear();
