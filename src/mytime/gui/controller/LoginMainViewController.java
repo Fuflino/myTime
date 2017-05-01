@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXMasonryPane;
 import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +39,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import mytime.be.Group;
+import mytime.be.Location;
 import mytime.be.Person;
+import mytime.gui.model.Model;
 import mytime.gui.model.VolunteerModel;
 
 /**
@@ -55,13 +58,14 @@ public class LoginMainViewController implements Initializable
 
     private VolunteerModel volunteerModel;
 
-    private Executor exec, exec2;
+    private Executor exec, exec2, exec3;
     @FXML
     private JFXSpinner jfxSpinner;
     @FXML
     private Label lblGreeting;
     @FXML
     private HBox ButtomHbox;
+    private Model model;
 
     /**
      * Fetches all the volunteers and loads it in the Tileview we have.
@@ -72,6 +76,7 @@ public class LoginMainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        model = Model.getInstance();
         exec = Executors.newCachedThreadPool(runnable
                 -> 
                 {
@@ -86,15 +91,83 @@ public class LoginMainViewController implements Initializable
                     t.setDaemon(true);
                     return t;
         });
+        exec3 = Executors.newCachedThreadPool(runnable
+                -> 
+                {
+                    Thread t = new Thread(runnable);
+                    t.setDaemon(true);
+                    return t;
+        });
 //        spinner = new JFXSpinner();
 //        masonryPane.getChildren().add(spinner);
 
         volunteerModel = VolunteerModel.getInstance();
         masonryPane.setCellHeight(80);
         masonryPane.setCellWidth(150);
-        
-        loadAllPersonsIntoListAsNodes();
+        if (volunteerModel.getLoginPersonNodes() != null)
+        {
+            Location locationToLoadAgain = volunteerModel.getCurrentLocation();
 
+            Task<Boolean> loadAgain = new Task<Boolean>()
+            {
+                @Override
+                protected Boolean call() throws Exception
+                {
+                    try
+                    {
+                        model.getSelectedLocation(locationToLoadAgain);
+                        return true;
+                    } catch (SQLException ex)
+                    {
+                        Logger.getLogger(LoginMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    return false;
+                }
+
+            };
+            loadAgain.setOnSucceeded(p
+                    -> 
+                    {
+                        loadAllPersonsIntoListAsNodes();
+            });
+            exec3.execute(loadAgain);
+
+        } else
+        {
+            loadAllPersonsIntoListAsNodes();
+        }
+
+//        List<Node> mock = new ArrayList<>();
+//        Task<Void> a = new Task<Void>()
+//        {
+//            @Override
+//            protected Void call() throws Exception
+//            {
+//                for (int i = 0; i < 30; i++)
+//                {
+//                    try
+//                    {
+//                        mock.add(getNodeForVolunteer(new Volunteer("bla bla", i, "", "", "https://i.imgsafe.org/3945ecd93f.png")));
+//                    } catch (IOException ex)
+//                    {
+//                        Logger.getLogger(LoginMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//
+//                }
+//                return null;
+//            }
+//
+//        };
+//        a.setOnSucceeded(b
+//                -> 
+//                {
+//                    masonryPane.requestFocus();
+////                    masonryPane.requestLayout();
+//                    masonryPane.getChildren().setAll(mock);
+////                    masonryPane.requestFocus();
+//                    masonryPane.requestLayout();
+//        });
+//        exec.execute(a);
     }
 
     /**
@@ -224,9 +297,37 @@ public class LoginMainViewController implements Initializable
                             updateGUITask.setOnSucceeded(j
                                     -> 
                                     {
-                                        ButtomHbox.getChildren().clear();
-                                        masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodes());
-                                        Platform.runLater(() -> scrollPane.requestLayout());
+                                        Task<Void> anotherTask = new Task<Void>()
+                                        {
+                                            @Override
+                                            protected Void call() throws Exception
+                                            {
+
+//                                        
+                                                Platform.runLater(()
+                                                        -> 
+                                                        {
+                                                            ButtomHbox.getChildren().clear();
+                                                            masonryPane.requestFocus();
+                                                            masonryPane.requestLayout();
+                                                            masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodes());
+//                                                            masonryPane.getChildren().addAll(volunteerModel.getLoginPersonNodes());
+                                                            masonryPane.requestLayout();
+                                                            masonryPane.requestFocus();
+                                                }
+                                                );
+
+                                                return null;
+                                            }
+
+                                        };
+                                        anotherTask.setOnSucceeded(o
+                                                -> 
+                                                {
+                                                    Platform.runLater(() -> scrollPane.requestLayout());
+                                        });
+                                        exec3.execute(anotherTask);
+
                             });
                             exec2.execute(updateGUITask);
                         } catch (InterruptedException ex)
