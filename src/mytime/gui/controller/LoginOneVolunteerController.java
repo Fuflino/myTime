@@ -53,18 +53,22 @@ public class LoginOneVolunteerController implements Initializable
     private void handleBtnVolunteerClick(ActionEvent event)
     {
         VolunteerModel.getInstance().setCurrentVolunteer(volunteer);
-        
+        System.out.println(volunteer.getId().get());
+
         Stage mainView = (Stage) btnVolunteer.getScene().getWindow();
         mainView.close();
 
         Parent mainViewLoad = null;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/NewVolunteerView.fxml"));
         try
         {
-            mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/NewVolunteerView.fxml"));
+            loader.load();
         } catch (IOException ex)
         {
             Logger.getLogger(LoginOneVolunteerController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        mainViewLoad = loader.getRoot();
         
         Scene scene = new Scene(mainViewLoad);
 

@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import mytime.gui.model.VolunteerModel;
@@ -47,9 +48,25 @@ public class VolunteerTopViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        dataBindGuiComponents();
+        
         // TODO
     }    
 
+    /**
+     * Binds the labels to the values of the current volunteer, and sets the image
+     */
+    private void dataBindGuiComponents()
+    {
+        VolunteerModel vmodel = VolunteerModel.getInstance();
+        
+        lblName.textProperty().bind(vmodel.getCurrentVolunteer().getName());
+        lblEmail.textProperty().bind(vmodel.getCurrentVolunteer().getEmail());
+        lblPhonenumber.textProperty().bind(vmodel.getCurrentVolunteer().getPhonenumber());
+        Image img = new Image(vmodel.getCurrentVolunteer().getProfilePicture().get());
+        imageView.setImage(img);
+    }
+    
     /**
      * Closes this view and loads the mainview with all the volunteers at the
      * current location.
