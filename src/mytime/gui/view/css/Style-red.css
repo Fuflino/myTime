@@ -58,16 +58,24 @@ and open the template in the editor.
 
 .LoginVolunteerBtn
 {
-    -fx-background-color: transparent;
+/*    -fx-background-color: transparent;
     -fx-border-color: rgb(173,173,173);
+    -fx-border-radius: 10px;*/
+    
+        -fx-background-color: rgb(235,235,235);
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 10px;
     -fx-border-radius: 10px;
+    -fx-border-width: 0 0 4 0;
 
 }
 .LoginVolunteerBtn:hover
 {
     -fx-border-radius: 10px;
-    -fx-border-style: dashed;
-    -fx-border-color: rgb(173,173,173);
+     -fx-background-color: rgb(225,225,225);
+    /*-fx-border-style: dashed;*/
+/*    -fx-border-color: rgb(173,173,173);*/
+    -fx-border-color: #64b5f6;
 }
 .topViewPane
 {
