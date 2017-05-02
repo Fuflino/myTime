@@ -90,7 +90,7 @@ public class GuildDAO
         
         try(Connection con = c)
         {
-            String sql = "SELECT Guild.id, Guild.name, Guild.description, Guild.locationid FROM Guild Join Works_In w on Guild.id = w.guildid Join Volunteer v on v.id = w.volunteerid WHERE v.id = ? AND Guild.locationid = ?";
+            String sql = "SELECT Guild.id, Guild.name, Guild.description, Guild.locationid, Guild.icon FROM Guild Join Works_In w on Guild.id = w.guildid Join Volunteer v on v.id = w.volunteerid WHERE v.id = ? AND Guild.locationid = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, volunteerid);
             ps.setInt(2, locationid);
@@ -101,9 +101,14 @@ public class GuildDAO
             {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                String description = rs.getString("description");
+                String description = rs.getString("description");         
+                String icon = rs.getString("icon");
+                if (icon == null)
+                {
+                    icon = "mytime/gui/view/css/notebook.png";
+                }
                 
-                Group guild = new Guild(name, id, locationid, description);
+                Group guild = new Guild(name, id, locationid, description, icon);
                 guildList.add(guild);
             }
         }
