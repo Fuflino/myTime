@@ -23,7 +23,7 @@ import mytime.gui.model.VolunteerModel;
 public class VolunteerOneGuildController implements Initializable
 {
 
-    private static final String SELECTED = "-fx-background-color: rgb(195,195,195);-fx-background-radius: 10px;";
+    private static final String SELECTED = "-fx-background-color: rgb(215,215,215);-fx-background-radius: 10px;";
     @FXML
     private Button btnGuild;
     private Group guild;
