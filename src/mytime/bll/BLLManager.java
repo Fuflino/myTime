@@ -72,4 +72,24 @@ public class BLLManager
         return dalFacade.getAMembersGuildsAtLocation(volunteerid, locationid);
     }
 
+    /**
+     * @param volunteerid
+     * @return the amount of hours one volunteer has worked in total, as an int. The volunteer is defined by id
+     * @throws SQLException 
+     */
+    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
+    {
+        return dalFacade.getTotalHoursOneVolunteer(volunteerid);
+    }
+    
+    /**
+     * @param volunteerid
+     * @param guildid
+     * @return amount of hours one person worked on one guild, as an int.
+     * @throws SQLException 
+     */
+    public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException
+    {
+        return dalFacade.getHoursWorkedOnOneGuildByVolunteer(volunteerid, guildid);
+    }
 }
