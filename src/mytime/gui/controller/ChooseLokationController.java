@@ -69,6 +69,7 @@ public class ChooseLokationController implements Initializable
         iconDecorator = new GraphicValidationDecoration();
         model = Model.getInstance();
         volunteerModel = VolunteerModel.getInstance();
+        volunteerModel.setBllManager(model.getBllManager());
 
         // Hente alle locations
         setAllLocationsAsItems();

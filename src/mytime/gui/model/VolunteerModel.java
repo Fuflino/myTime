@@ -6,17 +6,17 @@
 package mytime.gui.model;
 
 import java.sql.SQLException;
-import java.util.List;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import mytime.be.Group;
 import mytime.be.Location;
 import mytime.be.Person;
+import mytime.bll.BLLManager;
 
 /**
  *
@@ -31,7 +31,8 @@ public class VolunteerModel
     private Person currentVolunteer;
     private Group currentGuild;
     private List<Node> loginPersonNodes;
-    
+    private BLLManager bllMgr;
+    private BooleanProperty justExecuted;
 
     /**
      * Part of the singleton pattern
@@ -39,10 +40,9 @@ public class VolunteerModel
     private VolunteerModel()
     {
         userHourInput = new SimpleIntegerProperty(0);
+        justExecuted = new SimpleBooleanProperty(false);
         loginPersonNodes = new ArrayList<>();
     }
-    
-    
 
     /**
      * A part of the singleton pattern
@@ -95,7 +95,7 @@ public class VolunteerModel
     {
         int hoursToDocumentate = userHourInput.get();
         Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
-
+        justExecuted.set(true);
     }
 
     /**
@@ -106,19 +106,23 @@ public class VolunteerModel
     public void setCurrentLocation(Location course)
     {
         this.currentLocation = course;
-        
+
     }
+
     /**
      * A list of all the persons in the LoginMainView wrapped as nodes.
-     * @return 
+     *
+     * @return
      */
     public List<Node> getLoginPersonNodes()
     {
         return loginPersonNodes;
     }
+
     /**
      * Gets the current location.
-     * @return 
+     *
+     * @return
      */
     public Location getCurrentLocation()
     {
@@ -127,16 +131,18 @@ public class VolunteerModel
 
     /**
      * Sets the current active volunteer.
-     * @param volunteer 
+     *
+     * @param volunteer
      */
     public void setCurrentVolunteer(Person volunteer)
     {
         currentVolunteer = volunteer;
     }
-    
+
     /**
      * Sets the currently selected guild, to add hours to.
-     * @param currentGuild 
+     *
+     * @param currentGuild
      */
     public void setCurrentGuild(Group currentGuild)
     {
@@ -145,7 +151,8 @@ public class VolunteerModel
 
     /**
      * Returns the currently selected guild to add hours to.
-     * @return 
+     *
+     * @return
      */
     public Group getCurrentGuild()
     {
@@ -154,15 +161,50 @@ public class VolunteerModel
 
     /**
      * Returns the selected volunteer
-     * @return 
+     *
+     * @return
      */
     public Person getCurrentVolunteer()
     {
         return currentVolunteer;
     }
-    
-    
 
-    
-    
+    /**
+     * @param volunteerid
+     * @return the amount of hours one volunteer has worked in total, as an int.
+     * The volunteer is defined by id
+     * @throws SQLException
+     */
+    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
+    {
+        return bllMgr.getTotalHoursOneVolunteer(volunteerid);
+    }
+
+    /**
+     * @param volunteerid
+     * @param guildid
+     * @return amount of hours one person worked on one guild, as an int.
+     * @throws SQLException
+     */
+    public int getHoursWorkedOnOneGuildByVolunteer(int guildid) throws SQLException
+    {
+        return bllMgr.getHoursWorkedOnOneGuildByVolunteer(currentVolunteer.getId().get(), guildid);
+    }
+    /**
+     * Sets the bllMgr
+     * @param bllMgr 
+     */
+    public void setBllManager(BLLManager bllMgr)
+    {
+        this.bllMgr = bllMgr;
+    }
+    /**
+     * Gets the boolean property when you execute hour documentation
+     * @return 
+     */
+    public BooleanProperty getJustExecuted()
+    {
+        return justExecuted;
+    }
+
 }
