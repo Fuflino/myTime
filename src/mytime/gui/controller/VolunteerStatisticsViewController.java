@@ -116,7 +116,7 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                     List<Group> allGuildsForVolunteer = null;
                     try
                     {
-                        allGuildsForVolunteer = Model.getInstance().getAllGroupsForPerson();
+                        allGuildsForVolunteer = Model.getInstance().getAllGroupsForPerson(currentVolunteer.getId().get());
                     } catch (SQLException ex)
                     {
                         Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);

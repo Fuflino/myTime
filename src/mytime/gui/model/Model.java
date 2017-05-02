@@ -105,12 +105,13 @@ public class Model
     }
     /**
      * Gets a List of all the groups a person document hours into.
+     * @param personId
      * @return
      * @throws SQLException 
      */
-    public List<Group> getAllGroupsForPerson() throws SQLException
+    public List<Group> getAllGroupsForPerson(int personId) throws SQLException
     {
-        return null;
+        return bllMgr.getAllGroupsForPerson(personId);
     }
 
 }
