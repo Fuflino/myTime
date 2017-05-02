@@ -40,7 +40,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public List<Person> getAllVolunteersInGuild(Group group) throws SQLException
     {
-        return dao.getAllVolunteersInGuild(cm.getConnection(), group);
+        try(Connection con = cm.getConnection())
+        {
+            return dao.getAllVolunteersInGuild(cm.getConnection(), group);
+        }
+        
     }
     
     /**
@@ -53,7 +57,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public int createVolunteer(String name, String email, String phonenumber) throws SQLException
     {
-        return dao.createVolunteer(cm.getConnection(), name, email, phonenumber);
+        try(Connection con = cm.getConnection())
+        {
+            return dao.createVolunteer(cm.getConnection(), name, email, phonenumber);
+        }
+        
     }
     
     
@@ -69,8 +77,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
-        dao.addHoursForVolunteer(cm.getConnection(), volunteerid, guildid, hours);
-    }
+        try(Connection con = cm.getConnection())
+        {
+            dao.addHoursForVolunteer(cm.getConnection(), volunteerid, guildid, hours);
+        }
+    }   
 
     /**
      * 
@@ -81,7 +92,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
     {
-        return dao.getTotalHoursOneVolunteer(cm.getConnection(), volunteerid);
+        try(Connection con = cm.getConnection())
+        {
+            return dao.getTotalHoursOneVolunteer(cm.getConnection(), volunteerid); 
+        }
+        
     }
 
     /**
@@ -93,7 +108,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException
     {
-        return dao.getHoursWorkedOnOneGuildByVolunteer(cm.getConnection(), volunteerid, guildid);
+        try(Connection con = cm.getConnection())
+        {
+            return dao.getHoursWorkedOnOneGuildByVolunteer(cm.getConnection(), volunteerid, guildid);
+        }
+        
     }
 
     /**
@@ -105,7 +124,11 @@ public class VolunteerController implements IVolunteer
     @Override
     public void addVolunteerToGuild(int volunteerid, int guildid) throws SQLException
     {
-        dao.addVolunteerToGuild(cm.getConnection(), volunteerid, guildid);
+        try(Connection con = cm.getConnection())
+        {
+            dao.addVolunteerToGuild(cm.getConnection(), volunteerid, guildid);
+        }
+        
     }
     
     

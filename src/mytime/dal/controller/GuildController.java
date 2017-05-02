@@ -42,7 +42,11 @@ public class GuildController implements IGuild
     @Override
     public void createGuild(String name, String location) throws SQLException
     {
-        dao.createGuild(cm.getConnection(), name, location);
+        try (Connection con = cm.getConnection())
+        {
+            dao.createGuild(con, name, location);
+        }
+        
     }
     
     /**
@@ -52,7 +56,10 @@ public class GuildController implements IGuild
     @Override
     public List<Location> getAllLocations() throws SQLException
     {
-        return dao.getAllLocations(cm.getConnection());
+        try (Connection con = cm.getConnection())
+        {
+            return dao.getAllLocations(con);
+        }
     }
     
 //    /**
@@ -77,7 +84,11 @@ public class GuildController implements IGuild
     @Override
     public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
     {
-        return dao.getAMembersGuildsAtLocation(cm.getConnection(), volunteerid, locationid);
+        try (Connection con = cm.getConnection())
+        {
+            return dao.getAMembersGuildsAtLocation(con, volunteerid, locationid);
+        }
+        
     }
 
     /**
@@ -89,7 +100,11 @@ public class GuildController implements IGuild
     @Override
     public List<Integer> getArrayOfAvailableGuildsForVolunteer(int volunteerid) throws SQLException
     {
-        return dao.getArrayOfAvailableGuildsForVolunteer(cm.getConnection(), volunteerid);
+        try (Connection con = cm.getConnection())
+        {
+            return dao.getArrayOfAvailableGuildsForVolunteer(con, volunteerid);
+        }
+        
     }
     
     

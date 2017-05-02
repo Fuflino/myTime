@@ -31,64 +31,61 @@ public class LocationDAO
      * @param id
      * @return
      */
-    public Location getLocationById(Connection c, Location location) throws SQLException
+    public Location getLocationById(Connection con, Location location) throws SQLException
     {
         List<Group> guildlist = new ArrayList();
         Location returnLocation = location;
 
-        try (Connection con = c)
+        String sql = "SELECT * FROM Guild WHERE locationid = ?";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, location.getId().get());
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next())
         {
-            String sql = "SELECT * FROM Guild WHERE locationid = ?";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, location.getId().get());
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next())
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            String description = rs.getString("description");
+            int locationid = rs.getInt("locationid");
+            String icon = rs.getString("icon");
+            if (icon == null)
             {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String description = rs.getString("description");
-                int locationid = rs.getInt("locationid");
-                String icon = rs.getString("icon");
-                if (icon == null)
-                {
-                    icon = "mytime/gui/view/css/notebook.png";
-                }
-                Group guild = new Guild(name, id, locationid, description, icon);
-                guildlist.add(guild);
+                icon = "mytime/gui/view/css/notebook.png";
             }
-            System.out.println(guildlist.size());
-            for (Group group : guildlist)
+            Group guild = new Guild(name, id, locationid, description, icon);
+            guildlist.add(guild);
+        }
+        System.out.println(guildlist.size());
+        for (Group group : guildlist)
+        {
+            List<Person> personlist = new ArrayList();
+
+            //String sql = "SELECT v.name, v.email, v.phonenumber, v.description, v.id v.profilepicture FROM Volunteer v Join Works_In w ON v.id = w.volunteerid Join Guild g ON w.guildid = g.id WHERE g.id = ?";
+            String sql2 = "SELECT Volunteer.name, email, phonenumber, Volunteer.description, Volunteer.id, profilepicture FROM Volunteer Join Works_In w ON id = w.volunteerid Join Guild g ON w.guildid = g.id WHERE g.id = ?";
+
+            PreparedStatement ps2 = con.prepareStatement(sql2);
+            ps2.setInt(1, group.getId().get());
+            ResultSet rs2 = ps2.executeQuery();
+
+            while (rs2.next())
             {
-                List<Person> personlist = new ArrayList();
-
-                //String sql = "SELECT v.name, v.email, v.phonenumber, v.description, v.id v.profilepicture FROM Volunteer v Join Works_In w ON v.id = w.volunteerid Join Guild g ON w.guildid = g.id WHERE g.id = ?";
-                String sql2 = "SELECT Volunteer.name, email, phonenumber, Volunteer.description, Volunteer.id, profilepicture FROM Volunteer Join Works_In w ON id = w.volunteerid Join Guild g ON w.guildid = g.id WHERE g.id = ?";
-
-                PreparedStatement ps2 = con.prepareStatement(sql2);
-                ps2.setInt(1, group.getId().get());
-                ResultSet rs2 = ps2.executeQuery();
-
-                while (rs2.next())
+                String name = rs2.getString("name");
+                String email = rs2.getString("email");
+                String phonenumber = rs2.getString("phonenumber");
+                String description = rs2.getString("description");
+                String profilepicture = rs2.getString("profilepicture");
+                if (profilepicture == null)
                 {
-                    String name = rs2.getString("name");
-                    String email = rs2.getString("email");
-                    String phonenumber = rs2.getString("phonenumber");
-                    String description = rs2.getString("description");
-                    String profilepicture = rs2.getString("profilepicture");
-                    if (profilepicture == null)
-                    {
-                        profilepicture = "https://i.imgsafe.org/3945ecd93f.png";
-                    }
-                    int id = rs2.getInt("id");
-
-                    Person volunteer = new Volunteer(name, id, email, phonenumber, profilepicture);
-                    personlist.add(volunteer);
-
+                    profilepicture = "https://i.imgsafe.org/3945ecd93f.png";
                 }
-                group.setPersonlist(personlist);
+                int id = rs2.getInt("id");
+
+                Person volunteer = new Volunteer(name, id, email, phonenumber, profilepicture);
+                personlist.add(volunteer);
+
             }
+            group.setPersonlist(personlist);
         }
 
         location.setGroups(guildlist);

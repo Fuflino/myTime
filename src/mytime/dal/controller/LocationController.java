@@ -7,6 +7,7 @@ package mytime.dal.controller;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import mytime.be.Location;
@@ -38,7 +39,11 @@ public class LocationController implements ILocation
     @Override
     public Location getSelectedLocation(Location location) throws SQLException
     {
-        return locationDAO.getLocationById(cm.getConnection(), location);
+        try(Connection con = cm.getConnection())
+        {
+            return locationDAO.getLocationById(con, location);
+        }
+        
     }
 
 }
