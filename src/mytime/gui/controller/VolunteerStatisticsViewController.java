@@ -113,18 +113,18 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                     Person currentVolunteer = volunteerModel.getCurrentVolunteer();
 
                     //List<Group> guildsAtLocation = VolunteerModel.getInstance().getCurrentLocation().getGroups();
-                    List<Group> guildsAtLocation = null;
+                    List<Group> allGuildsForVolunteer = null;
                     try
                     {
-                        guildsAtLocation = Model.getInstance().getAMembersGuildsAtLocation(currentVolunteer.getId().get(), volunteerModel.getCurrentLocation().getId().get());
+                        allGuildsForVolunteer = Model.getInstance().getAllGroupsForPerson();
                     } catch (SQLException ex)
                     {
                         Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    for (int i = 0; i < guildsAtLocation.size(); i++)
+                    for (int i = 0; i < allGuildsForVolunteer.size(); i++)
                     {
-                        Group guild = guildsAtLocation.get(i);
+                        Group guild = allGuildsForVolunteer.get(i);
                         try
                         {
                             int hours = volunteerModel.getHoursWorkedOnOneGuildByVolunteer(guild.getId().get());
