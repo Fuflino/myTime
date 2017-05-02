@@ -108,6 +108,41 @@ public class GuildDAO
 
         return guildList;
     }
+    
+    /**
+     * @param con
+     * @param volunteerid
+     * @return a list of all the groups a person is assigned to
+     * @throws SQLException 
+     */
+    public List<Group> getAllGroupsForPerson(Connection con, int volunteerid) throws SQLException
+    {
+        List<Group> guildList = new ArrayList();
+        
+        String sql = "SELECT Guild.id, Guild.name, Guild.description, Guild.locationid, Guild.icon FROM Guild Join Works_In w on Guild.id = w.guildid Join Volunteer v on v.id = w.volunteerid WHERE v.id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, volunteerid);
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next())
+        {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            String description = rs.getString("description");
+            String icon = rs.getString("icon");
+            int locationid = rs.getInt("locationid");
+            if (icon == null)
+            {
+                icon = "mytime/gui/view/css/notebook.png";
+            }
+
+            Group guild = new Guild(name, id, locationid, description, icon);
+            guildList.add(guild);
+        }
+
+        return guildList;
+    }
 
     /**
      * @param c

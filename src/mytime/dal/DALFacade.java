@@ -7,6 +7,7 @@ package mytime.dal;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import mytime.be.Group;
@@ -188,5 +189,16 @@ public class DALFacade
     public void addVolunteerToGuild(int volunteerid, int guildid) throws SQLException
     {
         volunteerController.addVolunteerToGuild(volunteerid, guildid);
+    }
+    
+    /**
+     * @param volunteerid
+     * @return a list of all the groups a person is assigned to
+     * @throws SQLException 
+     */
+    public List<Group> getAllGroupsForPerson(int volunteerid) throws SQLException
+    {
+        return guildController.getAllGroupsForPerson(volunteerid);
+        
     }
 }

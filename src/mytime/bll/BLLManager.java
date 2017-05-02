@@ -92,4 +92,14 @@ public class BLLManager
     {
         return dalFacade.getHoursWorkedOnOneGuildByVolunteer(volunteerid, guildid);
     }
+    
+    /**
+     * @param volunteerid
+     * @return a list of all the groups a person is assigned to
+     * @throws SQLException 
+     */
+    public List<Group> getAllGroupsForPerson(int volunteerid) throws SQLException
+    {
+        return dalFacade.getAllGroupsForPerson(volunteerid); 
+    }
 }
