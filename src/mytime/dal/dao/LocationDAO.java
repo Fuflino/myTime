@@ -50,7 +50,12 @@ public class LocationDAO
                 String name = rs.getString("name");
                 String description = rs.getString("description");
                 int locationid = rs.getInt("locationid");
-                Group guild = new Guild(name, id, locationid, description);
+                String icon = rs.getString("icon");
+                if (icon == null)
+                {
+                    icon = "mytime/gui/view/css/notebook.png";
+                }
+                Group guild = new Guild(name, id, locationid, description, icon);
                 guildlist.add(guild);
             }
             System.out.println(guildlist.size());
