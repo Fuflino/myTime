@@ -87,3 +87,13 @@ and open the template in the editor.
     -fx-background-color: #e0e0e0;
     -fx-text-fill: black;
 }
+
+.VolunteerStatisticsGridPane
+{
+    -fx-background-color: rgb(235,235,235);
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 0 0 4 0;
+
+}

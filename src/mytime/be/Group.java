@@ -24,13 +24,15 @@ public abstract class Group
     private final IntegerProperty locationId;
     private StringProperty description;
     private List<Person> personlist;
+    private StringProperty iconUrl;
     
-    public Group(String name, int id, int locationId, String description)
+    public Group(String name, int id, int locationId, String description, String iconUrl)
     {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.locationId = new SimpleIntegerProperty(locationId);
         this.description = new SimpleStringProperty(description);
+        this.iconUrl = new SimpleStringProperty(iconUrl);
         
         personlist = new ArrayList();
     }
@@ -99,6 +101,14 @@ public abstract class Group
     public void setPersonlist(List<Person> personlist)
     {
         this.personlist = personlist;
+    }
+    /**
+     * Getter for the Icon String. Comes as a URL.
+     * @return 
+     */
+    public StringProperty getIconUrl()
+    {
+        return iconUrl;
     }
     
     

@@ -28,7 +28,7 @@ public class VolunteerOneGuildController implements Initializable
     private Button btnGuild;
     private Group guild;
     
-    VolunteerMainViewController mainController;
+    private VolunteerMainViewController mainController;
 
     /**
      * Initializes the controller class.

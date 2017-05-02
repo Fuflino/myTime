@@ -5,8 +5,6 @@
  */
 package mytime.be;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  *
@@ -15,9 +13,9 @@ import javafx.beans.property.StringProperty;
 public class Guild extends Group
 {
 
-    public Guild(String name, int id, int locationId, String description)
+    public Guild(String name, int id, int locationId, String description, String iconUrl)
     {
-        super(name, id, locationId, description);
+        super(name, id, locationId, description, iconUrl);
     }
 
 
