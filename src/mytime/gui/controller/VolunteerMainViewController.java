@@ -64,8 +64,8 @@ public class VolunteerMainViewController implements Initializable
     @FXML
     private Label lblUserHourInput;
     private List<VolunteerOneGuildController> guildControllers;
-    private JFXSnackbar snackBar;
-    private JFXSnackbar undoSnackbar;
+    private JFXSnackbar snackBar, undoSnackbar;
+
     @FXML
     private JFXTabPane tabPane;
     @FXML
@@ -102,14 +102,16 @@ public class VolunteerMainViewController implements Initializable
         });
 
         snackBar = new JFXSnackbar(gridPane);
+        undoSnackbar = new JFXSnackbar(gridPane);
         undoChangesHandler = (EventHandler) (Event event)
                 -> 
                 {
                     try
                     {
+                        undoSnackbar.close();
                         snackBar.close();
                         volunteerModel.undoLastChanges();
-                        snackBar.show("          Slettede sidste udførte handling med success!", 3000);
+                        undoSnackbar.show("          Slettede sidste udførte handling med success!", 3000);
                     } catch (SQLException ex)
                     {
                         ex.printStackTrace();
@@ -297,6 +299,8 @@ public class VolunteerMainViewController implements Initializable
                 String css = url.toExternalForm();
 
                 root.getStylesheets().add(css);
+                undoSnackbar.close();
+                snackBar.close();
                 snackBar.show("         Du har glemt enten at vælge laug, eller vælge time antal", 5000);
 
 //            snackBar.setStyle(null);
@@ -345,7 +349,13 @@ public class VolunteerMainViewController implements Initializable
             }
             );
             exec.execute(executeHourDocumentationTask);
-            Platform.runLater(() -> snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", "Fortryd?", undoChangesHandler));
+            Platform.runLater(()
+                    -> 
+                    {
+                        snackBar.close();
+                        
+                        undoSnackbar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", "Fortryd?", undoChangesHandler);
+            });
         }
 
     }
