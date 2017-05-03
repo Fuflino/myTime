@@ -26,9 +26,12 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,6 +40,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import mytime.be.Group;
 import mytime.be.Person;
@@ -61,6 +65,7 @@ public class VolunteerMainViewController implements Initializable
     private Label lblUserHourInput;
     private List<VolunteerOneGuildController> guildControllers;
     private JFXSnackbar snackBar;
+    private JFXSnackbar undoSnackbar;
     @FXML
     private JFXTabPane tabPane;
     @FXML
@@ -75,6 +80,11 @@ public class VolunteerMainViewController implements Initializable
     private JFXButton btnExecuteHourInput;
 
     private Executor exec;
+
+    private EventHandler undoChangesHandler;
+
+    @FXML
+    private StackPane centerStackPane;
 
     /**
      * Initializes the controller class.
@@ -92,6 +102,19 @@ public class VolunteerMainViewController implements Initializable
         });
 
         snackBar = new JFXSnackbar(gridPane);
+        undoChangesHandler = (EventHandler) (Event event)
+                -> 
+                {
+                    try
+                    {
+                        snackBar.close();
+                        volunteerModel.undoLastChanges();
+                        snackBar.show("          Slettede sidste udførte handling med success!", 3000);
+                    } catch (SQLException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+        };
 
         volunteerModel = VolunteerModel.getInstance();
         lblUserHourInput.textProperty().bind(volunteerModel.getUserHourInput().asString());
@@ -322,7 +345,7 @@ public class VolunteerMainViewController implements Initializable
             }
             );
             exec.execute(executeHourDocumentationTask);
-            Platform.runLater(() -> snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", 4500));
+            Platform.runLater(() -> snackBar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", "Fortryd?", undoChangesHandler));
         }
 
     }

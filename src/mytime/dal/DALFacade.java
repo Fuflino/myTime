@@ -49,13 +49,7 @@ public class DALFacade
         return INSTANCE;
     }
 
-    /**
-<<<<<<< HEAD
-     * Gets all volunteers in a given group(guild)
-=======
-     * Gets a volunteer by id (Not implemented)
-     *
->>>>>>> origin/master
+    /** Gets all the volunteers in a group
      * @return
      * @throws SQLException
      */
@@ -200,5 +194,13 @@ public class DALFacade
     {
         return guildController.getAllGroupsForPerson(volunteerid);
         
+    }
+    /**
+     * Undoes the last documented hours for the current person logged in.
+     * @throws SQLException if there hadn't been done a transaction.
+     */
+    public void undoLastDocumentedHours() throws SQLException
+    {
+        volunteerController.undoLastDocumentedHours();
     }
 }

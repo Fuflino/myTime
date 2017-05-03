@@ -26,46 +26,53 @@ public class BLLManager
     {
         dalFacade = DALFacade.getInstance();
     }
+
     /**
      * Gets all the locations without the groups and persons
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Location> getAllLocations() throws SQLException
     {
         return dalFacade.getAllLocations();
     }
+
     /**
      * Gets a Location with groups and persons by id
+     *
      * @param locationId
      * @return
-     * @throws SQLServerException 
+     * @throws SQLServerException
      */
     public Location getSelectedLocation(Location location) throws SQLException
     {
         return dalFacade.getSelectedLocation(location);
     }
-    
+
     /**
-     * Documents volunteer-hours in the database. Method is called to store 
-     * hours worked by given volunteer-id at given guild-id. The date when 
-     * this method is called is also saved in the database
+     * Documents volunteer-hours in the database. Method is called to store
+     * hours worked by given volunteer-id at given guild-id. The date when this
+     * method is called is also saved in the database
+     *
      * @param volunteerid
      * @param guildid
      * @param hours
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
         dalFacade.addHoursForVolunteer(volunteerid, guildid, hours);
     }
-    
+
     /**
-     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * Returns a list of guilds at a certain location which the given volunteer
+     * is a member of
+     *
      * @param c
      * @param volunteerid
      * @param locationid
-     * @return 
+     * @return
      */
     public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
     {
@@ -74,32 +81,38 @@ public class BLLManager
 
     /**
      * @param volunteerid
-     * @return the amount of hours one volunteer has worked in total, as an int. The volunteer is defined by id
-     * @throws SQLException 
+     * @return the amount of hours one volunteer has worked in total, as an int.
+     * The volunteer is defined by id
+     * @throws SQLException
      */
     public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
     {
         return dalFacade.getTotalHoursOneVolunteer(volunteerid);
     }
-    
+
     /**
      * @param volunteerid
      * @param guildid
      * @return amount of hours one person worked on one guild, as an int.
-     * @throws SQLException 
+     * @throws SQLException
      */
     public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException
     {
         return dalFacade.getHoursWorkedOnOneGuildByVolunteer(volunteerid, guildid);
     }
-    
+
     /**
      * @param volunteerid
      * @return a list of all the groups a person is assigned to
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Group> getAllGroupsForPerson(int volunteerid) throws SQLException
     {
-        return dalFacade.getAllGroupsForPerson(volunteerid); 
+        return dalFacade.getAllGroupsForPerson(volunteerid);
+    }
+
+    public void undoLastDocumentedHours() throws SQLException
+    {
+        dalFacade.undoLastDocumentedHours();
     }
 }
