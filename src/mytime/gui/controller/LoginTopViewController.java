@@ -5,11 +5,15 @@
  */
 package mytime.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -29,6 +33,7 @@ public class LoginTopViewController implements Initializable
     private ImageView imgView;
     @FXML
     private GridPane gridPane;
+    
 
     /**
      * Initializes the controller class.
@@ -47,4 +52,39 @@ public class LoginTopViewController implements Initializable
     {
     }
     
+    @FXML
+    private void handleBtnDan(ActionEvent event)
+    {
+        loadView(new Locale("dan"));
+    }
+    
+    @FXML
+    private void handleBtnEng(ActionEvent event)
+    {
+        loadView(new Locale("eng"));
+    }
+    
+    @FXML
+    private void handleBtnGer(ActionEvent event)
+    {
+        loadView(new Locale("ger"));
+    }
+    
+    private void loadView(Locale locale)
+    {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", locale);
+            Parent root = FXMLLoader.load(getClass().getResource("/mytime/gui/LanguageTest.fxml"), bundle);
+            // replace the content
+            AnchorPane content = (AnchorPane) lblBye.getScene().getRoot();
+            content.getChildren().clear();
+            content.getChildren().add(root);
+
+        } catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
 }

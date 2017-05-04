@@ -36,25 +36,25 @@
                </children>
             </GridPane>
             <Button layoutX="703.0" layoutY="86.0" mnemonicParsing="false" onAction="#handleBtnManager" text="Manager" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="86.0" />
-            <Button fx:id="btnEng" layoutX="718.0" layoutY="6.0" mnemonicParsing="false">
+            <Button layoutX="718.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleBtnEng">
          <graphic>
-            <ImageView fx:id="btnEng" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@EnglishF.PNG" />
                </image>
             </ImageView>
          </graphic></Button>
-            <Button fx:id="btnGer" layoutX="638.0" layoutY="6.0" mnemonicParsing="false">
+            <Button layoutX="638.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleBtnGer">
          <graphic>
-            <ImageView fx:id="btnGer" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@GermanF.PNG" />
                </image>
             </ImageView>
          </graphic></Button>
-            <Button fx:id="btnDan" layoutX="559.0" layoutY="6.0" mnemonicParsing="false">
+            <Button layoutX="559.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleBtnDan">
          <graphic>
-            <ImageView fx:id="btnDan" fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@DanishF.PNG" />
                </image>
