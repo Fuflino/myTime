@@ -74,7 +74,7 @@ and open the template in the editor.
     /*-fx-background-size: 30px;*/
     -fx-background-repeat: no-repeat;
     -fx-background-position: 5%;
-
+    
 }
 .jfx-snackbar-toast {
     -fx-text-fill: white; 
@@ -87,7 +87,7 @@ and open the template in the editor.
     -fx-underline:true;
     -fx-border-color: transparent;
     -fx-background-color: transparent;
-
+    
 }
 .jfx-snackbar-action:hover
 {
@@ -111,18 +111,4 @@ and open the template in the editor.
     -fx-border-radius: 10px;
     -fx-border-width: 0 0 4 0;
 
-}
-.VolunteerStatisticsTotalHours
-{
-    -fx-background-color: rgb(235,235,235);
-    -fx-border-color: #45506e;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-    -fx-border-width: 0 0 4 0;
-}
-.lblTotHours
-{
-    -fx-border-color: black, transparent, black;
-    -fx-border-width: 0 0 1 0, 0 0 1 0, 0 0 1 0;
-    -fx-border-insets: 0 0 1 0, 0 0 2 0, 0 0 3 0;
 }

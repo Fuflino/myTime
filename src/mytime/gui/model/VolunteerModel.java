@@ -175,9 +175,9 @@ public class VolunteerModel
      * The volunteer is defined by id
      * @throws SQLException
      */
-    public int getTotalHoursOneVolunteer() throws SQLException
+    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
     {
-        return bllMgr.getTotalHoursOneVolunteer(currentVolunteer.getId().get());
+        return bllMgr.getTotalHoursOneVolunteer(volunteerid);
     }
 
     /**
