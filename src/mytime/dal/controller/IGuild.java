@@ -25,4 +25,6 @@ public interface IGuild
     
     public List<Integer> getArrayOfAvailableGuildsForVolunteer(int volunteerid) throws SQLException;
     
+    public List<Group> getAllGroupsForPerson(int volunteerid) throws SQLException;
+    
 }

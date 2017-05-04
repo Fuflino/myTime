@@ -107,5 +107,20 @@ public class GuildController implements IGuild
         
     }
     
+    /**
+     * @param volunteerid
+     * @return a list of all the groups a person is assigned to
+     * @throws SQLException 
+     */
+    @Override
+    public List<Group> getAllGroupsForPerson(int volunteerid) throws SQLException
+    {
+        try(Connection con = cm.getConnection())
+        {
+            return dao.getAllGroupsForPerson(con, volunteerid);
+        }
+        
+    }
+    
     
 }

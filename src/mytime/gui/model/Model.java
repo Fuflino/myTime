@@ -46,58 +46,72 @@ public class Model
         return INSTANCE;
 
     }
+
     /**
      * Gets all the locations without the groups and persons
+     *
      * @return
-     * @throws SQLException 
+     * @throws SQLException
      */
     public List<Location> getAllLocations() throws SQLException
     {
         return bllMgr.getAllLocations();
     }
+
     /**
      * Gets a location with groups and persons.
+     *
      * @param id
      * @return
-     * @throws SQLServerException 
+     * @throws SQLServerException
      */
     public Location getSelectedLocation(Location location) throws SQLException
     {
         return bllMgr.getSelectedLocation(location);
     }
-    
+
     /**
-     * Documents volunteer-hours in the database. Method is called to store 
-     * hours worked by given volunteer-id at given guild-id. The date when 
-     * this method is called is also saved in the database
+     * Documents volunteer-hours in the database. Method is called to store
+     * hours worked by given volunteer-id at given guild-id. The date when this
+     * method is called is also saved in the database
+     *
      * @param volunteerid
      * @param guildid
      * @param hours
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addHoursForVolunteer(int volunteerid, int guildid, int hours) throws SQLException
     {
         bllMgr.addHoursForVolunteer(volunteerid, guildid, hours);
     }
-    
-    
+
     /**
-     * Returns a list of guilds at a certain location which the given volunteer is a member of
+     * Returns a list of guilds at a certain location which the given volunteer
+     * is a member of
+     *
      * @param c
      * @param volunteerid
      * @param locationid
-     * @return 
+     * @return
      */
     public List<Group> getAMembersGuildsAtLocation(int volunteerid, int locationid) throws SQLException
     {
         return bllMgr.getAMembersGuildsAtLocation(volunteerid, locationid);
     }
-    
+
     public BLLManager getBllManager()
     {
         return bllMgr;
     }
-    
-    
+    /**
+     * Gets a List of all the groups a person document hours into.
+     * @param personId
+     * @return
+     * @throws SQLException 
+     */
+    public List<Group> getAllGroupsForPerson(int personId) throws SQLException
+    {
+        return bllMgr.getAllGroupsForPerson(personId);
+    }
 
 }

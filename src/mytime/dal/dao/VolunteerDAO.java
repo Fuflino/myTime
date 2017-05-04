@@ -26,6 +26,8 @@ import mytime.be.Volunteer;
 public class VolunteerDAO
 {
 
+    private int lastestTransId;
+
     /**
      *
      * @param c the connection to the database
@@ -126,16 +128,18 @@ public class VolunteerDAO
      * Adds a hour-transaction to the database. example: (Date: 24-06-2017,
      * Hours added: 6, to guild(id): 2, By volunteer(id): 1)
      *
-     * @param vol
-     * @param guild
+     * @param con
+     * @param volunteerid
+     * @param guildid
      * @param hours
+     * @throws java.sql.SQLException
      */
     public void addHoursForVolunteer(Connection con, int volunteerid, int guildid, int hours) throws SQLException
     {
         String sql = "INSERT INTO HoursTransaction(hours, volunteerid, guildid, date)"
                 + "VALUES(?, ?, ?, ?)";
 
-        PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         ps.setInt(1, hours);
         ps.setInt(2, volunteerid);
@@ -144,6 +148,18 @@ public class VolunteerDAO
         Date date = java.sql.Date.valueOf(ld);
         ps.setDate(4, (java.sql.Date) date);
         ps.executeUpdate();
+        try (ResultSet rs = ps.getGeneratedKeys())
+        {
+            if (rs.next())
+            {
+                lastestTransId = rs.getInt(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            System.out.println("Couldn't get generated keys");
+        }
+
     }
 
     /**
@@ -194,6 +210,19 @@ public class VolunteerDAO
             System.out.println("Something went wrong");
             return -1;
         }
+    }
+    /**
+     * Undoes the lastest transaction of documented hours.
+     * @param c
+     * @throws SQLException 
+     */
+    public void undoLastChange(Connection c) throws SQLException
+    {
+        String sql = "DELETE FROM HoursTransaction WHERE transid = ?";
+        
+        PreparedStatement ps = c.prepareStatement(sql);
+        ps.setInt(1, lastestTransId);
+        ps.executeUpdate();
     }
 
 }

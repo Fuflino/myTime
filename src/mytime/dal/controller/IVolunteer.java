@@ -31,5 +31,7 @@ public interface IVolunteer
     public int getHoursWorkedOnOneGuildByVolunteer(int volunteerid, int guildid) throws SQLException;
     
     public void addVolunteerToGuild(int volunteerid, int guildid) throws SQLException;
+    
+    public void undoLastDocumentedHours() throws SQLException;
             
 }

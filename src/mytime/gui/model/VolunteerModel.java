@@ -190,21 +190,34 @@ public class VolunteerModel
     {
         return bllMgr.getHoursWorkedOnOneGuildByVolunteer(currentVolunteer.getId().get(), guildid);
     }
+
     /**
      * Sets the bllMgr
-     * @param bllMgr 
+     *
+     * @param bllMgr
      */
     public void setBllManager(BLLManager bllMgr)
     {
         this.bllMgr = bllMgr;
     }
+
     /**
      * Gets the boolean property when you execute hour documentation
-     * @return 
+     *
+     * @return
      */
     public BooleanProperty getJustExecuted()
     {
         return justExecuted;
+    }
+    /**
+     * Undoes the last documented hours a user had had pressed execute on.
+     * @throws SQLException 
+     */
+    public void undoLastChanges() throws SQLException
+    {
+        bllMgr.undoLastDocumentedHours();
+        justExecuted.set(true);
     }
 
 }

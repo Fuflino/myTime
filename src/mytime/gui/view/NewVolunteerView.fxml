@@ -13,80 +13,88 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="601.0" prefWidth="1089.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerMainViewController">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="601.0" prefWidth="1089.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.VolunteerMainViewController">
     <top>
         <fx:include source="VolunteerTopView.fxml" />
     </top>
     <center>
-        <JFXTabPane fx:id="tabPane" side="LEFT" styleClass="defaultBackgroundColor" BorderPane.alignment="CENTER">
+        <JFXTabPane fx:id="tabPane" side="LEFT" styleClass="defaultBackgroundColor">
             <tabs>
                 <Tab text="Dokumentér">
                     <content>
-                
-                        <GridPane fx:id="gridPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
+                        <StackPane fx:id="centerStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Label text="Vælg laug:">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" styleClass="defaultBackgroundColor" GridPane.rowIndex="1">
-                                    <content>
-                                        <JFXMasonryPane fx:id="masonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="865.0" />
-                                    </content>
-                                </ScrollPane>
-                                <Label text="Vælg antal timer:" GridPane.rowIndex="2">
-                                    <font>
-                                        <Font size="16.0" />
-                                    </font>
-                                </Label>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="3">
+                      
+                                <GridPane fx:id="gridPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="96.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="310.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="204.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="265.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
                                     <children>
-                             
-                                        <Label fx:id="lblUserHourInput" text="3">
+                                        <Label text="Vælg laug:">
                                             <font>
-                                                <Font size="36.0" />
+                                                <Font size="16.0" />
                                             </font>
                                         </Label>
-                                        
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="4">
-                                    <children>
-                                        <JFXButton fx:id="btnHourDown" onAction="#handleHourInputDown" prefHeight="60.0" prefWidth="64.0" rotate="180.0" text="" />
-                                        <JFXButton fx:id="btnExecuteHourInput" onAction="#handleExecuteHourInput" prefHeight="60.0" prefWidth="230.0" text="Udfør">
+                                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" styleClass="defaultBackgroundColor" GridPane.rowIndex="1">
+                                            <content>
+                                                <JFXMasonryPane fx:id="masonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="865.0" />
+                                            </content>
+                                        </ScrollPane>
+                                        <Label text="Vælg antal timer:" GridPane.rowIndex="2">
                                             <font>
-                                                <Font size="19.0" />
+                                                <Font size="16.0" />
                                             </font>
-                                        </JFXButton>
-                                        <JFXButton fx:id="btnHourUp" onAction="#handleHourInputUp" prefHeight="60.0" prefWidth="64.0" text="" />
-                                           
-                                        
+                                        </Label>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0" GridPane.rowIndex="3">
+                                            <children>
+                                   
+                                                <Label fx:id="lblUserHourInput" text="3">
+                                                    <font>
+                                                        <Font size="36.0" />
+                                                    </font>
+                                                </Label>
+                                              
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="4">
+                                            <children>
+                                                <JFXButton fx:id="btnHourDown" onAction="#handleHourInputDown" prefHeight="60.0" prefWidth="64.0" rotate="180.0" text="" />
+                                                <JFXButton fx:id="btnExecuteHourInput" onAction="#handleExecuteHourInput" prefHeight="60.0" prefWidth="230.0" text="Udfør">
+                                                    <font>
+                                                        <Font size="19.0" />
+                                                    </font>
+                                                </JFXButton>
+                                                <JFXButton fx:id="btnHourUp" onAction="#handleHourInputUp" prefHeight="60.0" prefWidth="64.0" text="" />
+                                                 
+                                                    
+                                            </children>
+                                 <padding>
+                                    <Insets bottom="3.0" />
+                                 </padding>
+                                        </HBox>
                                     </children>
-                                </HBox>
+                                    <padding>
+                                        <Insets left="2.0" top="5.0" />
+                                    </padding>
+                                </GridPane>
                             </children>
-                            <padding>
-                                <Insets left="2.0" top="5.0" />
-                            </padding>
-                        </GridPane>
+                        </StackPane>
                     
                     </content>
                 </Tab>
                 <Tab text="Statistik">
                     <content>
-                       <fx:include source="VolunteerStatisticsView.fxml"/>
+                        <fx:include source="VolunteerStatisticsView.fxml" />
                     </content>
                 </Tab>
             </tabs>
