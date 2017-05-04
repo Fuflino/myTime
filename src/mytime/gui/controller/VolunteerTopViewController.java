@@ -82,6 +82,7 @@ public class VolunteerTopViewController implements Initializable
         
         Stage mainView = (Stage) btnBack.getScene().getWindow();
         mainView.close();
+        
 
         Parent mainViewLoad = null;
         try

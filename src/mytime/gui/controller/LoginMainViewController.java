@@ -51,7 +51,7 @@ import mytime.gui.model.VolunteerModel;
  *
  * @author Stefan-VpcEB3J1E
  */
-public class LoginMainViewController implements Initializable, ChangeListener<String> 
+public class LoginMainViewController implements Initializable, ChangeListener<String>
 {
 
     @FXML
@@ -80,8 +80,7 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-                
-                
+
         model = Model.getInstance();
         exec = Executors.newCachedThreadPool(runnable
                 -> 
@@ -109,11 +108,12 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
 
         volunteerModel = VolunteerModel.getInstance();
         //volunteerModel.getBool().addListener(this);
-        
+
         volunteerModel.getSearchQuery().addListener(this);
-        
+
         masonryPane.setCellHeight(80);
         masonryPane.setCellWidth(150);
+        volunteerModel.getIsTextFieldRdy().set(true);
         if (!volunteerModel.getLoginPersonNodes().isEmpty())
         {
             System.out.println("here");
@@ -135,7 +135,6 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
                     return null;
 
                 }
-                
 
             };
             loadAgain.setOnSucceeded(p
@@ -154,38 +153,6 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
         {
             loadAllPersonsIntoListAsNodes();
         }
-
-//        List<Node> mock = new ArrayList<>();
-//        Task<Void> a = new Task<Void>()
-//        {
-//            @Override
-//            protected Void call() throws Exception
-//            {
-//                for (int i = 0; i < 30; i++)
-//                {
-//                    try
-//                    {
-//                        mock.add(getNodeForVolunteer(new Volunteer("bla bla", i, "", "", "https://i.imgsafe.org/3945ecd93f.png")));
-//                    } catch (IOException ex)
-//                    {
-//                        Logger.getLogger(LoginMainViewController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                }
-//                return null;
-//            }
-//
-//        };
-//        a.setOnSucceeded(b
-//                -> 
-//                {
-//                    masonryPane.requestFocus();
-////                    masonryPane.requestLayout();
-//                    masonryPane.getChildren().setAll(mock);
-////                    masonryPane.requestFocus();
-//                    masonryPane.requestLayout();
-//        });
-//        exec.execute(a);
     }
 
     /**
@@ -345,6 +312,7 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
                                                 -> 
                                                 {
                                                     Platform.runLater(() -> scrollPane.requestFocus());
+                                                    volunteerModel.getIsTextFieldRdy().set(false);
                                         });
                                         exec3.execute(anotherTask);
 
@@ -362,29 +330,30 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
         exec.execute(loadPersonAsGUIComponentsTask);
 
     }
-    
+
     /**
      * This method is called whenever the value of the search-area is changed.
-     * The volunteers in the masonrypane is filtered with the new value of the search-area
+     * The volunteers in the masonrypane is filtered with the new value of the
+     * search-area
+     *
      * @param observable
      * @param oldValue
-     * @param newValue 
+     * @param newValue
      */
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
     {
-        VolunteerModel vmodel = VolunteerModel.getInstance();
-        //String query = textFieldFilter.getText();
-        List<Node> filteredList = vmodel.filterList(newValue);
-        vmodel.getLoginPersonNodesFiltered().clear();
-        vmodel.getLoginPersonNodesFiltered().addAll(filteredList);
-        System.out.println(newValue + " old: " + oldValue);
         
-        masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodesFiltered());
-        
-    }
+            VolunteerModel vmodel = VolunteerModel.getInstance();
+            //String query = textFieldFilter.getText();
+            List<Node> filteredList = vmodel.filterList(newValue);
+            vmodel.getLoginPersonNodesFiltered().clear();
+            vmodel.getLoginPersonNodesFiltered().addAll(filteredList);
+            System.out.println(newValue + " old: " + oldValue);
 
-    
-    
+            masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodesFiltered());
+        
+
+    }
 
 }

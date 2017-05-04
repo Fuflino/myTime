@@ -47,6 +47,7 @@ public class LoginTopViewController implements Initializable
     {
         VolunteerModel volunteerModel = VolunteerModel.getInstance();
         volunteerModel.getSearchQuery().bindBidirectional(textFieldFilter.textProperty());
+        textFieldFilter.disableProperty().bind(volunteerModel.getIsTextFieldRdy());
         // TODO
     }    
     /**
@@ -57,5 +58,7 @@ public class LoginTopViewController implements Initializable
     private void handleBtnManager(ActionEvent event)
     {
     }
+    
+    
     
 }

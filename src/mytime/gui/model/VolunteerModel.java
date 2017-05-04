@@ -35,7 +35,7 @@ public class VolunteerModel
     private Group currentGuild;
     private List<Node> loginPersonNodes;
     private BLLManager bllMgr;
-    private BooleanProperty justExecuted;
+    private BooleanProperty justExecuted, isTextFieldRdy;
     private StringProperty searchQuery;
     private List<Node> loginPersonNodesFiltered;
     
@@ -50,6 +50,7 @@ public class VolunteerModel
         loginPersonNodes = new ArrayList<>();
         loginPersonNodesFiltered = new ArrayList<>();
         searchQuery = new SimpleStringProperty();
+        isTextFieldRdy = new SimpleBooleanProperty(false);
     }
 
     /**
@@ -253,6 +254,14 @@ public class VolunteerModel
     public StringProperty getSearchQuery()
     {
         return searchQuery;
+    }
+    /**
+     * For the textfield in the login top view
+     * @return 
+     */
+    public BooleanProperty getIsTextFieldRdy()
+    {
+        return isTextFieldRdy;
     }
         
 }
