@@ -66,5 +66,6 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <JFXTextField fx:id="textFieldFilter" layoutX="356.0" layoutY="86.0" promptText="Søg" />
          </children>
       </AnchorPane>
