@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -353,8 +355,9 @@ public class VolunteerMainViewController implements Initializable
                     -> 
                     {
                         snackBar.close();
-                        
+
                         undoSnackbar.show("          Dokumenterede " + hours + " time(r) ved laug " + volunteerModel.getCurrentGuild().getName().get() + " med success!", "Fortryd?", undoChangesHandler);
+                        setOnActionCloseClick();
             });
         }
 
@@ -365,5 +368,38 @@ public class VolunteerMainViewController implements Initializable
         return guildControllers;
     }
 
-    //dsadas
+    /**
+     * Sets a timer when you click in the document hours window, and closes the snackbar after 3.5sec.
+     */
+    private void setOnActionCloseClick()
+    {
+        gridPane.setOnMouseClicked(e
+                -> 
+                {
+                    TimerTask clearActions = new TimerTask()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            gridPane.setOnMouseClicked(null);
+                        }
+                    };
+                    Timer timer2 = new Timer(true);
+                    timer2.schedule(clearActions, 3600);
+                    TimerTask timerTask = new TimerTask()
+                    {
+                        @Override
+                        public void run()
+                        {
+
+                            undoSnackbar.close();
+
+                        }
+                    };
+                    Timer timer = new Timer(true);
+                    timer.schedule(timerTask, 3500);
+
+        });
+
+    }
 }
