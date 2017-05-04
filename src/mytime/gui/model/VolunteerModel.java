@@ -7,11 +7,14 @@ package mytime.gui.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import mytime.be.Group;
 import mytime.be.Location;
@@ -33,6 +36,9 @@ public class VolunteerModel
     private List<Node> loginPersonNodes;
     private BLLManager bllMgr;
     private BooleanProperty justExecuted;
+    private StringProperty searchQuery;
+    private List<Node> loginPersonNodesFiltered;
+    
 
     /**
      * Part of the singleton pattern
@@ -42,6 +48,8 @@ public class VolunteerModel
         userHourInput = new SimpleIntegerProperty(0);
         justExecuted = new SimpleBooleanProperty(false);
         loginPersonNodes = new ArrayList<>();
+        loginPersonNodesFiltered = new ArrayList<>();
+        searchQuery = new SimpleStringProperty();
     }
 
     /**
@@ -222,4 +230,29 @@ public class VolunteerModel
         justExecuted.set(true);
     }
 
+    /** 
+     * @param query
+     * @return a filtered list based on the given query
+     */
+    public List<Node> filterList(String query)
+    {
+        return bllMgr.filterList(query, loginPersonNodes);
+    }
+
+    /**
+     * @return the filtered list of nodes.  
+     */
+    public List<Node> getLoginPersonNodesFiltered()
+    {
+        return loginPersonNodesFiltered;
+    }
+
+    /**
+     * @return the value of the searchfield 
+     */
+    public StringProperty getSearchQuery()
+    {
+        return searchQuery;
+    }
+        
 }

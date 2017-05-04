@@ -8,7 +8,11 @@ package mytime.bll;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import mytime.be.Group;
 import mytime.be.Location;
 import mytime.dal.DALFacade;
@@ -114,5 +118,27 @@ public class BLLManager
     public void undoLastDocumentedHours() throws SQLException
     {
         dalFacade.undoLastDocumentedHours();
+    }
+
+    /**
+     * Takes a list and a query. Returns a new list filtered with the query. 
+     * @param query
+     * @param fullList
+     * @return 
+     */
+    public List<Node> filterList(String query, List<Node> fullList)
+    {
+        List<Node> filteredList = new ArrayList();
+
+        for (int i = 0; i < fullList.size(); i++)
+        {
+            Button button = (Button) fullList.get(i);
+            if (button.getText().toLowerCase().contains(query.toLowerCase()))
+            {
+                filteredList.add(fullList.get(i));
+            }
+        }
+
+        return filteredList;
     }
 }

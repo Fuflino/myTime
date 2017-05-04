@@ -24,6 +24,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,7 +51,7 @@ import mytime.gui.model.VolunteerModel;
  *
  * @author Stefan-VpcEB3J1E
  */
-public class LoginMainViewController implements Initializable
+public class LoginMainViewController implements Initializable, ChangeListener<String> 
 {
 
     @FXML
@@ -66,6 +69,7 @@ public class LoginMainViewController implements Initializable
     @FXML
     private HBox ButtomHbox;
     private Model model;
+    private BooleanProperty bp;
 
     /**
      * Fetches all the volunteers and loads it in the Tileview we have.
@@ -76,6 +80,8 @@ public class LoginMainViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+                
+                
         model = Model.getInstance();
         exec = Executors.newCachedThreadPool(runnable
                 -> 
@@ -102,6 +108,10 @@ public class LoginMainViewController implements Initializable
 //        masonryPane.getChildren().add(spinner);
 
         volunteerModel = VolunteerModel.getInstance();
+        //volunteerModel.getBool().addListener(this);
+        
+        volunteerModel.getSearchQuery().addListener(this);
+        
         masonryPane.setCellHeight(80);
         masonryPane.setCellWidth(150);
         if (!volunteerModel.getLoginPersonNodes().isEmpty())
@@ -352,5 +362,29 @@ public class LoginMainViewController implements Initializable
         exec.execute(loadPersonAsGUIComponentsTask);
 
     }
+    
+    /**
+     * This method is called whenever the value of the search-area is changed.
+     * The volunteers in the masonrypane is filtered with the new value of the search-area
+     * @param observable
+     * @param oldValue
+     * @param newValue 
+     */
+    @Override
+    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+    {
+        VolunteerModel vmodel = VolunteerModel.getInstance();
+        //String query = textFieldFilter.getText();
+        List<Node> filteredList = vmodel.filterList(newValue);
+        vmodel.getLoginPersonNodesFiltered().clear();
+        vmodel.getLoginPersonNodesFiltered().addAll(filteredList);
+        System.out.println(newValue + " old: " + oldValue);
+        
+        masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodesFiltered());
+        
+    }
+
+    
+    
 
 }
