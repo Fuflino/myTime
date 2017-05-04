@@ -175,9 +175,9 @@ public class VolunteerModel
      * The volunteer is defined by id
      * @throws SQLException
      */
-    public int getTotalHoursOneVolunteer(int volunteerid) throws SQLException
+    public int getTotalHoursOneVolunteer() throws SQLException
     {
-        return bllMgr.getTotalHoursOneVolunteer(volunteerid);
+        return bllMgr.getTotalHoursOneVolunteer(currentVolunteer.getId().get());
     }
 
     /**
@@ -210,9 +210,11 @@ public class VolunteerModel
     {
         return justExecuted;
     }
+
     /**
      * Undoes the last documented hours a user had had pressed execute on.
-     * @throws SQLException 
+     *
+     * @throws SQLException
      */
     public void undoLastChanges() throws SQLException
     {
