@@ -22,7 +22,7 @@
    <bottom>
       <HBox fx:id="ButtomHbox" alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblGreeting" prefHeight="7.0" prefWidth="230.0" text="Henter data... Vent venligst.">
+            <Label fx:id="lblGreeting" prefHeight="7.0" text="%loadData">
                <graphic>
                   <JFXSpinner fx:id="jfxSpinner" />
                </graphic>

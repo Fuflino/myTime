@@ -35,7 +35,7 @@
         </HBox>
         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="4.0" GridPane.columnIndex="1">
             <children>
-                <Label text="Timer dokumenteret:">
+                <Label text="%hoursDocumented">
                     <font>
                         <Font size="13.0" />
                     </font>

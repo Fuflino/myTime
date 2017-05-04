@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -84,7 +85,8 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
      */
     private Node getNodeForGuild(String iconUrl, String guildName, int guildHours) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerStatisticsOneGuild.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", volunteerModel.getLocale());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerStatisticsOneGuild.fxml"), bundle);
         Node node = loader.load();
         VolunteerStatisticsOneGuildController controller = loader.getController();
         controller.setGuildHours(guildHours);
@@ -100,12 +102,12 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
 
     private Node getTotalGuildNode(String iconUrl, String name, int totalHours) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerStatisticsTotalHours.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", volunteerModel.getLocale());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerStatisticsTotalHours.fxml"), bundle);
         Node node = loader.load();
         VolunteerStatisticsTotalHoursController controller = loader.getController();
         controller.setGuildHours(totalHours);
         controller.setGuildIcon(iconUrl);
-        controller.setGuildName(name);
         return node;
     }
 

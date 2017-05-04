@@ -34,16 +34,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Navn:" />
+                <Label text="%Name" />
                 <Label fx:id="lblName" text="Erik Larsen" GridPane.columnIndex="1" />
-                <Label text="Email:" GridPane.rowIndex="1" />
+                <Label text="%Email" GridPane.rowIndex="1" />
                 <Label fx:id="lblEmail" text="ErikLarsen@mig.dk" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label text="Tlf. Nummer:" GridPane.rowIndex="2" />
+                <Label text="%TelNumber" GridPane.rowIndex="2" />
                 <Label fx:id="lblPhonenumber" text="09583755" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
 <!--      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c68917" height="94.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="108.0" />-->
-        <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="4.0" layoutY="1.0" onAction="#handleGoBack" prefHeight="25.0" prefWidth="89.0" text="&lt;- Tilbage">
+        <JFXButton fx:id="btnBack" buttonType="RAISED" layoutX="4.0" layoutY="1.0" onAction="#handleGoBack" prefHeight="25.0" prefWidth="89.0" text="%Back">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

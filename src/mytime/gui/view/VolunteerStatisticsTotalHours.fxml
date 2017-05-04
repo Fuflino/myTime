@@ -30,7 +30,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
          <children>
-            <Label fx:id="lblGuildName" text="Total Timer Dokumenteret::::::">
+            <Label fx:id="lblGuildName" text="%hoursDocumentedTotal">
                <font>
                   <Font size="17.0" />
                </font>

@@ -7,6 +7,7 @@ package mytime.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,8 +60,8 @@ public class LoginOneVolunteerController implements Initializable
         mainView.close();
 
         Parent mainViewLoad = null;
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/NewVolunteerView.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", model.getLocale());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/NewVolunteerView.fxml"), bundle);
         try
         {
             loader.load();

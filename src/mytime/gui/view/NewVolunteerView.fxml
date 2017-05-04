@@ -23,7 +23,7 @@
     <center>
         <JFXTabPane fx:id="tabPane" side="LEFT" styleClass="defaultBackgroundColor">
             <tabs>
-                <Tab text="Dokumentér">
+                <Tab text="%documentTab">
                     <content>
                         <StackPane fx:id="centerStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
@@ -40,7 +40,7 @@
                                         <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="185.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Vælg laug:">
+                                        <Label text="%chooseGuild">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
@@ -50,7 +50,7 @@
                                                 <JFXMasonryPane fx:id="masonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="119.0" prefWidth="865.0" />
                                             </content>
                                         </ScrollPane>
-                                        <Label text="Vælg antal timer:" GridPane.rowIndex="2">
+                                        <Label text="%chooseHour" GridPane.rowIndex="2">
                                             <font>
                                                 <Font size="16.0" />
                                             </font>
@@ -69,7 +69,7 @@
                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.rowIndex="4">
                                             <children>
                                                 <JFXButton fx:id="btnHourDown" onAction="#handleHourInputDown" prefHeight="60.0" prefWidth="64.0" rotate="180.0" text="" />
-                                                <JFXButton fx:id="btnExecuteHourInput" onAction="#handleExecuteHourInput" prefHeight="60.0" prefWidth="230.0" text="Udfør">
+                                                <JFXButton fx:id="btnExecuteHourInput" onAction="#handleExecuteHourInput" prefHeight="60.0" prefWidth="230.0" text="%execute">
                                                     <font>
                                                         <Font size="19.0" />
                                                     </font>
@@ -92,7 +92,7 @@
                     
                     </content>
                 </Tab>
-                <Tab text="Statistik">
+                <Tab text="%Statistics">
                     <content>
                         <fx:include source="VolunteerStatisticsView.fxml" />
                     </content>
