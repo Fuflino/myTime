@@ -37,7 +37,7 @@ import mytime.gui.model.VolunteerModel;
  */
 public class VolunteerStatisticsViewController implements Initializable, ChangeListener<Boolean>
 {
-    
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -97,6 +97,18 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
 //        animation.play();
         return node;
     }
+
+    private Node getTotalGuildNode(String iconUrl, String name, int totalHours) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mytime/gui/view/VolunteerStatisticsTotalHours.fxml"));
+        Node node = loader.load();
+        VolunteerStatisticsTotalHoursController controller = loader.getController();
+        controller.setGuildHours(totalHours);
+        controller.setGuildIcon(iconUrl);
+        controller.setGuildName(name);
+        return node;
+    }
+
     /**
      * Runs a thread and load the guild statistics in as Nodes.
      */
@@ -119,9 +131,9 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                         allGuildsForVolunteer = Model.getInstance().getAllGroupsForPerson(currentVolunteer.getId().get());
                     } catch (SQLException ex)
                     {
-                        Logger.getLogger(VolunteerMainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
                     }
-                    
+
                     for (int i = 0; i < allGuildsForVolunteer.size(); i++)
                     {
                         Group guild = allGuildsForVolunteer.get(i);
@@ -131,9 +143,9 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                             elements.add(getNodeForGuild(guild.getIconUrl().get(), guild.getName().get(), hours));
                         } catch (SQLException ex)
                         {
-                            Logger.getLogger(VolunteerStatisticsViewController.class.getName()).log(Level.SEVERE, null, ex);
+                            ex.printStackTrace();
                         }
-                        
+
                     }
                 } catch (IOException ex)
                 {
@@ -141,7 +153,7 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                 }
                 return elements;
             }
-            
+
         };
         getNodes.setOnSucceeded(e
                 -> 
@@ -149,17 +161,38 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                     if (getNodes.getValue() != null)
                     {
                         Platform.runLater(() -> vBoxGuilds.getChildren().addAll(getNodes.getValue()));
+
+                        Task<Node> totalHours = new Task<Node>()
+                        {
+                            @Override
+                            protected Node call() throws Exception
+                            {
+                                int totHours = volunteerModel.getTotalHoursOneVolunteer();
+//                                Node returnNode = getNodeForGuild("mytime/gui/view/css/edit.png", "lol", totHours);
+                                Node returnNode = getTotalGuildNode("mytime/gui/view/css/edit.png", " Timer dokumenteret i alt: ", totHours);
+                                return returnNode;
+                            }
+                        };
+                        totalHours.setOnSucceeded(b
+                                -> 
+                                {
+                                    Platform.runLater(() -> vBoxGuilds.getChildren().add(totalHours.getValue()));
+                        });
+                        exec.execute(totalHours);
                     }
         });
+
         exec.execute(getNodes);
-        
+
     }
+
     /**
-     * Gets called when the booleanProperty on the VolunteerModel get sets to True.
-     * Loads in the new statistics, after you document hours on a guild.
+     * Gets called when the booleanProperty on the VolunteerModel get sets to
+     * True. Loads in the new statistics, after you document hours on a guild.
+     *
      * @param observable
      * @param oldValue
-     * @param newValue 
+     * @param newValue
      */
     @Override
     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue)
@@ -174,8 +207,8 @@ public class VolunteerStatisticsViewController implements Initializable, ChangeL
                         loadGuildStatisticsInAsNodes();
                         volunteerModel.getJustExecuted().set(false);
             });
-            
+
         }
     }
-    
+
 }
