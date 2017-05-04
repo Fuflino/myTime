@@ -87,7 +87,8 @@ public class VolunteerTopViewController implements Initializable
         Parent mainViewLoad = null;
         try
         {
-            mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"));
+             ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", vmodel.getLocale());
+            mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"),bundle);
         } catch (IOException ex)
         {
             Logger.getLogger(LoginOneVolunteerController.class.getName()).log(Level.SEVERE, null, ex);

@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXSpinner;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -146,8 +147,10 @@ public class ChooseLokationController implements Initializable
                             {
                                 Stage mainView = (Stage) comboBoxLocation.getScene().getWindow();
                                 mainView.close();
-
-                                Parent mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"));
+                                Locale locale = new Locale("da_DK");
+                                volunteerModel.setCurrentLocale(locale);
+                                ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", locale);
+                                Parent mainViewLoad = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"), bundle);
                                 Scene scene = new Scene(mainViewLoad);
 
                                 mainView.setScene(scene);

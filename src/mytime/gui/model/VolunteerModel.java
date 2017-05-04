@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -25,8 +26,7 @@ import mytime.bll.BLLManager;
  *
  * @author Stefan-VpcEB3J1E
  */
-public class VolunteerModel
-{
+public class VolunteerModel {
 
     private static VolunteerModel INSTANCE;
     private IntegerProperty userHourInput;
@@ -36,15 +36,19 @@ public class VolunteerModel
     private List<Node> loginPersonNodes;
     private BLLManager bllMgr;
     private BooleanProperty justExecuted, isTextFieldRdy;
+
+
+    private Locale locale;
+
     private StringProperty searchQuery;
     private List<Node> loginPersonNodesFiltered;
     
 
+
     /**
      * Part of the singleton pattern
      */
-    private VolunteerModel()
-    {
+    private VolunteerModel() {
         userHourInput = new SimpleIntegerProperty(0);
         justExecuted = new SimpleBooleanProperty(false);
         loginPersonNodes = new ArrayList<>();
@@ -58,10 +62,8 @@ public class VolunteerModel
      *
      * @return An instance of a VolunteerModel
      */
-    public static VolunteerModel getInstance()
-    {
-        if (INSTANCE == null)
-        {
+    public static VolunteerModel getInstance() {
+        if (INSTANCE == null) {
             INSTANCE = new VolunteerModel();
         }
         return INSTANCE;
@@ -72,26 +74,22 @@ public class VolunteerModel
      * @return The IntegerProperty of the hours that the user have added in the
      * GUI
      */
-    public IntegerProperty getUserHourInput()
-    {
+    public IntegerProperty getUserHourInput() {
         return userHourInput;
     }
 
     /**
      * Adds one up in user hour input
      */
-    public void addOneUpInUserHourInput()
-    {
+    public void addOneUpInUserHourInput() {
         userHourInput.set(userHourInput.get() + 1);
     }
 
     /**
      * Substracts one from the user hour input
      */
-    public void minusOneUpInUserHoursInput()
-    {
-        if (!userHourInput.isEqualTo(0).get())
-        {
+    public void minusOneUpInUserHoursInput() {
+        if (!userHourInput.isEqualTo(0).get()) {
             userHourInput.set(userHourInput.get() - 1);
         }
     }
@@ -100,8 +98,7 @@ public class VolunteerModel
      * Documents the hours into the database
      *
      */
-    public void executeHourDocumentation() throws SQLException
-    {
+    public void executeHourDocumentation() throws SQLException {
         int hoursToDocumentate = userHourInput.get();
         Model.getInstance().addHoursForVolunteer(currentVolunteer.getId().get(), currentGuild.getId().get(), hoursToDocumentate);
         justExecuted.set(true);
@@ -112,8 +109,7 @@ public class VolunteerModel
      *
      * @param course
      */
-    public void setCurrentLocation(Location course)
-    {
+    public void setCurrentLocation(Location course) {
         this.currentLocation = course;
 
     }
@@ -123,8 +119,7 @@ public class VolunteerModel
      *
      * @return
      */
-    public List<Node> getLoginPersonNodes()
-    {
+    public List<Node> getLoginPersonNodes() {
         return loginPersonNodes;
     }
 
@@ -133,8 +128,7 @@ public class VolunteerModel
      *
      * @return
      */
-    public Location getCurrentLocation()
-    {
+    public Location getCurrentLocation() {
         return currentLocation;
     }
 
@@ -143,8 +137,7 @@ public class VolunteerModel
      *
      * @param volunteer
      */
-    public void setCurrentVolunteer(Person volunteer)
-    {
+    public void setCurrentVolunteer(Person volunteer) {
         currentVolunteer = volunteer;
     }
 
@@ -153,8 +146,7 @@ public class VolunteerModel
      *
      * @param currentGuild
      */
-    public void setCurrentGuild(Group currentGuild)
-    {
+    public void setCurrentGuild(Group currentGuild) {
         this.currentGuild = currentGuild;
     }
 
@@ -163,8 +155,7 @@ public class VolunteerModel
      *
      * @return
      */
-    public Group getCurrentGuild()
-    {
+    public Group getCurrentGuild() {
         return currentGuild;
     }
 
@@ -173,8 +164,7 @@ public class VolunteerModel
      *
      * @return
      */
-    public Person getCurrentVolunteer()
-    {
+    public Person getCurrentVolunteer() {
         return currentVolunteer;
     }
 
@@ -184,9 +174,13 @@ public class VolunteerModel
      * The volunteer is defined by id
      * @throws SQLException
      */
+
+    
+
     public int getTotalHoursOneVolunteer() throws SQLException
     {
         return bllMgr.getTotalHoursOneVolunteer(currentVolunteer.getId().get());
+
     }
 
     /**
@@ -195,8 +189,7 @@ public class VolunteerModel
      * @return amount of hours one person worked on one guild, as an int.
      * @throws SQLException
      */
-    public int getHoursWorkedOnOneGuildByVolunteer(int guildid) throws SQLException
-    {
+    public int getHoursWorkedOnOneGuildByVolunteer(int guildid) throws SQLException {
         return bllMgr.getHoursWorkedOnOneGuildByVolunteer(currentVolunteer.getId().get(), guildid);
     }
 
@@ -205,8 +198,7 @@ public class VolunteerModel
      *
      * @param bllMgr
      */
-    public void setBllManager(BLLManager bllMgr)
-    {
+    public void setBllManager(BLLManager bllMgr) {
         this.bllMgr = bllMgr;
     }
 
@@ -215,8 +207,7 @@ public class VolunteerModel
      *
      * @return
      */
-    public BooleanProperty getJustExecuted()
-    {
+    public BooleanProperty getJustExecuted() {
         return justExecuted;
     }
 
@@ -225,11 +216,21 @@ public class VolunteerModel
      *
      * @throws SQLException
      */
-    public void undoLastChanges() throws SQLException
-    {
+    public void undoLastChanges() throws SQLException {
         bllMgr.undoLastDocumentedHours();
         justExecuted.set(true);
     }
+
+
+    public void setCurrentLocale(Locale locale) 
+    {
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
 
     /** 
      * @param query
@@ -264,4 +265,5 @@ public class VolunteerModel
         return isTextFieldRdy;
     }
         
+
 }

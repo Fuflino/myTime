@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="531.0" prefWidth="862.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.LoginMainViewController">
+<BorderPane fx:id="borderpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="531.0" prefWidth="862.0" stylesheets="@css/Style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mytime.gui.controller.LoginMainViewController">
    <top>
       <fx:include source="LoginTopView.fxml" />
    </top>
