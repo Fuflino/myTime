@@ -54,6 +54,10 @@ public class LoginTopViewController implements Initializable
     private ImageView imgViewGer;
     @FXML
     private ImageView imgViewDan;
+    @FXML
+    private Button btnGer;
+    @FXML
+    private Button btnDan;
 
     /**
      * Initializes the controller class.
@@ -66,6 +70,9 @@ public class LoginTopViewController implements Initializable
 
         volunteerModel.getSearchQuery().bindBidirectional(textFieldFilter.textProperty());
         textFieldFilter.disableProperty().bind(volunteerModel.getIsTextFieldRdy());
+        btnDan.disableProperty().bind(volunteerModel.getIsTextFieldRdy());
+        btnEng.disableProperty().bind(volunteerModel.getIsTextFieldRdy());
+        btnGer.disableProperty().bind(volunteerModel.getIsTextFieldRdy());
         // TODO
 
     }

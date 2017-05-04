@@ -35,7 +35,7 @@ public class VolunteerModel {
     private Group currentGuild;
     private List<Node> loginPersonNodes;
     private BLLManager bllMgr;
-    private BooleanProperty justExecuted, isTextFieldRdy;
+    private BooleanProperty justExecuted, isTextFieldRdy, cameFromVolunteerView;
 
 
     private Locale locale;
@@ -55,6 +55,7 @@ public class VolunteerModel {
         loginPersonNodesFiltered = new ArrayList<>();
         searchQuery = new SimpleStringProperty();
         isTextFieldRdy = new SimpleBooleanProperty(false);
+        cameFromVolunteerView = new SimpleBooleanProperty();
     }
 
     /**
@@ -263,6 +264,11 @@ public class VolunteerModel {
     public BooleanProperty getIsTextFieldRdy()
     {
         return isTextFieldRdy;
+    }
+
+    public BooleanProperty getCameFromVolunteerView()
+    {
+        return cameFromVolunteerView;
     }
         
 

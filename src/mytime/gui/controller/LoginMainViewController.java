@@ -76,7 +76,6 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
 
     private BooleanProperty bp;
 
-
     /**
      * Fetches all the volunteers and loads it in the Tileview we have.
      *
@@ -122,6 +121,9 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
         volunteerModel.getIsTextFieldRdy().set(true);
         if (!volunteerModel.getLoginPersonNodes().isEmpty())
         {
+            if (volunteerModel.getCameFromVolunteerView().get())
+            {
+            volunteerModel.getCameFromVolunteerView().set(false);
             System.out.println("here");
             Location locationToLoadAgain = volunteerModel.getCurrentLocation();
 
@@ -154,6 +156,11 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
 
             });
             exec3.execute(loadAgain);
+            }
+            else
+            {
+                loadInNodesPlain();
+            }
 
         } else
         {
@@ -349,17 +356,31 @@ public class LoginMainViewController implements Initializable, ChangeListener<St
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
     {
-        
-            VolunteerModel vmodel = VolunteerModel.getInstance();
-            //String query = textFieldFilter.getText();
-            List<Node> filteredList = vmodel.filterList(newValue);
-            vmodel.getLoginPersonNodesFiltered().clear();
-            vmodel.getLoginPersonNodesFiltered().addAll(filteredList);
-            System.out.println(newValue + " old: " + oldValue);
 
-            masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodesFiltered());
-        
+        VolunteerModel vmodel = VolunteerModel.getInstance();
+        //String query = textFieldFilter.getText();
+        List<Node> filteredList = vmodel.filterList(newValue);
+        vmodel.getLoginPersonNodesFiltered().clear();
+        vmodel.getLoginPersonNodesFiltered().addAll(filteredList);
+        System.out.println(newValue + " old: " + oldValue);
 
+        masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodesFiltered());
+
+    }
+    /**
+     * gets called when you change language.
+     */
+    private void loadInNodesPlain()
+    {
+        masonryPane.getChildren().clear();
+        ButtomHbox.getChildren().clear();
+        masonryPane.getChildren().setAll(volunteerModel.getLoginPersonNodes());
+//                                                            masonryPane.getChildren().addAll(volunteerModel.getLoginPersonNodes());
+        masonryPane.requestLayout();
+        masonryPane.requestFocus();
+        scrollPane.requestLayout();
+        volunteerModel.getIsTextFieldRdy().set(false);
+        
     }
 
 }

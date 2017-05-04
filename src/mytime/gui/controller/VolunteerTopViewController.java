@@ -78,6 +78,7 @@ public class VolunteerTopViewController implements Initializable
         VolunteerModel vmodel = VolunteerModel.getInstance();
         vmodel.getUserHourInput().set(0);
         vmodel.setCurrentGuild(null);
+        vmodel.getCameFromVolunteerView().set(true);
         vmodel.setCurrentVolunteer(null);
         
         Stage mainView = (Stage) btnBack.getScene().getWindow();
