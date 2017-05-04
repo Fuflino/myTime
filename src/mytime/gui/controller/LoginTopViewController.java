@@ -16,7 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import mytime.gui.model.VolunteerModel;
 
 /**
  * Controller class for the Top of our borderpane, in the view where you select wich volunteer you would like to add
@@ -34,6 +36,8 @@ public class LoginTopViewController implements Initializable
     @FXML
     private GridPane gridPane;
     
+    private VolunteerModel volunteerModel;
+    
 
     /**
      * Initializes the controller class.
@@ -41,7 +45,7 @@ public class LoginTopViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        volunteerModel = VolunteerModel.getInstance();
     }    
     /**
      * Gets called when you would like to login as a manager.
@@ -72,13 +76,14 @@ public class LoginTopViewController implements Initializable
     
     private void loadView(Locale locale)
     {
+        volunteerModel.setCurrentLocale(locale);
         try
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
             ResourceBundle bundle = ResourceBundle.getBundle("mytime.gui.UIResources", locale);
-            Parent root = FXMLLoader.load(getClass().getResource("/mytime/gui/LanguageTest.fxml"), bundle);
+            Parent root = FXMLLoader.load(getClass().getResource("/mytime/gui/view/LoginMainView.fxml"), bundle);
             // replace the content
-            AnchorPane content = (AnchorPane) lblBye.getScene().getRoot();
+            BorderPane content = (BorderPane) anchorPane.getScene().getRoot();
             content.getChildren().clear();
             content.getChildren().add(root);
 

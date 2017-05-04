@@ -35,6 +35,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
@@ -66,6 +67,8 @@ public class LoginMainViewController implements Initializable
     @FXML
     private HBox ButtomHbox;
     private Model model;
+    @FXML
+    private BorderPane borderpane;
 
     /**
      * Fetches all the volunteers and loads it in the Tileview we have.
