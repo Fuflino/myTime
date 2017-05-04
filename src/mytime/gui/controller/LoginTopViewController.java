@@ -5,6 +5,7 @@
  */
 package mytime.gui.controller;
 
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
@@ -35,9 +36,15 @@ public class LoginTopViewController implements Initializable
     private ImageView imgView;
     @FXML
     private GridPane gridPane;
+
     
     private VolunteerModel volunteerModel;
     
+
+
+    @FXML
+    private JFXTextField textFieldFilter;
+
 
     /**
      * Initializes the controller class.
@@ -45,7 +52,13 @@ public class LoginTopViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+
         volunteerModel = VolunteerModel.getInstance();
+
+        
+        volunteerModel.getSearchQuery().bindBidirectional(textFieldFilter.textProperty());
+        // TODO
+        
     }    
     /**
      * Gets called when you would like to login as a manager.
@@ -56,6 +69,7 @@ public class LoginTopViewController implements Initializable
     {
     }
     
+
     @FXML
     private void handleBtnDan(ActionEvent event)
     {
@@ -92,4 +106,5 @@ public class LoginTopViewController implements Initializable
             ex.printStackTrace();
         }
     }
+
 }
